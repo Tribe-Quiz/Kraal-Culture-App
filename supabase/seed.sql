@@ -1,0 +1,14 @@
+-- Optional: add artists. Run after schema.sql.
+-- Replace the sample row with real artists, one insert per artist.
+-- country_id / culture_id must match src/constants/countries.js
+-- (cultures: zulu, xitsonga, venda, sotho, setswana, ndebele, bapedi).
+--
+-- Migrating from the old project? Export its `artists` table as CSV from the
+-- dashboard Table Editor and import it here (Table Editor > Insert > Import CSV).
+
+-- insert into public.artists
+--   (country_id, culture_id, culture_name, name, tagline, genre, bio, photo_url,
+--    instagram, spotify_url, youtube_url, has_music, has_vr, has_bioscope)
+-- values
+--   ('za', 'zulu', 'Zulu', 'Artist Name', 'Short tagline', 'Maskandi', 'Short bio.', 'https://example.com/photo.jpg',
+--    'instagram_handle', 'https://open.spotify.com/artist/...', 'https://youtube.com/@...', true, false, false);

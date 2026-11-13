@@ -1,0 +1,21 @@
+{
+  "name": "kraal-culture-backend",
+  "version": "1.0.0",
+  "description": "Deezer search proxy for the Kraal Culture app",
+  "main": "server.js",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1"
+  }
+}
