@@ -37,7 +37,7 @@
 .np-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(8, 4, 1, 0.85);
+  background: rgba(var(--shade-rgb), 0.5);
   z-index: 0;
   pointer-events: none;
 }
@@ -171,8 +171,8 @@
   height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  border: 4px solid #2c1a0c;
-  background: #2c1a0c;
+  border: 4px solid rgb(var(--shade-rgb));
+  background: rgb(var(--shade-rgb));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -316,12 +316,12 @@
   justify-content: center;
   background: none;
   border: none;
-  color: rgba(212,168,85,0.7);
+  color: rgba(var(--accent-text-rgb), 0.7);
   cursor: pointer;
   padding: 4px;
   transition: color 0.25s, transform 0.2s;
 }
-.np-heart-btn:hover { color: rgba(212,168,85,0.95); transform: scale(1.15); }
+.np-heart-btn:hover { color: rgba(var(--accent-text-rgb), 0.95); transform: scale(1.15); }
 .np-heart-btn.liked { color: #e8556a; }
 .np-heart-btn.liked:hover { color: #e8556a; transform: scale(1.2); }
 
@@ -464,4 +464,14 @@
   .np-gold-ring { width: 220px; height: 220px; }
   .np-track-title { font-size: 1.2rem; white-space: normal; word-break: break-word; }
   .np-side-controls .np-volume-slider { width: 50px; }
+}
+/* .np-page > * sets position: relative, which collapsed the overlay to zero height */
+.np-page > .np-overlay { position: absolute; inset: 0; }
+:root[data-theme="light"] .np-overlay { background: rgba(var(--shade-rgb), 0.82); }
+
+/* Phones: keep all five transport buttons on screen */
+@media (max-width: 420px) {
+  .np-controls { gap: 8px; max-width: 100%; padding: 0 8px; }
+  .np-ctrl-btn { width: 42px; height: 42px; flex: 0 0 auto; }
+  .np-play-btn { width: 60px; height: 60px; flex: 0 0 auto; }
 }

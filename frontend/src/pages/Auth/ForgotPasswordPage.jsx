@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../../supabase';
 import './AuthPages.css';
+import ThemeToggle from '../../components/ThemeToggle';
 import './ForgotPasswordPage.css';
 
 const logoPath = '/assets/images/KwaKhanye_logo.jpeg';
@@ -49,6 +50,7 @@ function RequestReset() {
   if (sent) {
     return (
       <div className="auth-container">
+        <ThemeToggle floating />
         <div className="auth-bg-blur">Kwa Khanye</div>
         <div className="auth-card auth-card--centered">
           <div className="auth-brand auth-brand--centered">
@@ -85,6 +87,7 @@ function RequestReset() {
 
   return (
     <div className="auth-container">
+      <ThemeToggle floating />
       <div className="auth-bg-blur">Kwa Khanye</div>
       <div className="auth-card">
         <div className="auth-brand">
@@ -197,6 +200,7 @@ function UpdatePassword() {
   if (!isValidSession && !done) {
     return (
       <div className="auth-container">
+        <ThemeToggle floating />
         <div className="auth-bg-blur">Kwa Khanye</div>
         <div className="auth-card auth-card--centered">
           <div className="auth-brand auth-brand--centered">
@@ -247,6 +251,7 @@ function UpdatePassword() {
   if (done) {
     return (
       <div className="auth-container">
+        <ThemeToggle floating />
         <div className="auth-bg-blur">Kwa Khanye</div>
         <div className="auth-card auth-card--centered">
           <div className="auth-brand auth-brand--centered">
@@ -274,6 +279,7 @@ function UpdatePassword() {
 
   return (
     <div className="auth-container">
+      <ThemeToggle floating />
       <div className="auth-bg-blur">Kwa Khanye</div>
       <div className="auth-card">
         <div className="auth-brand">

@@ -46,10 +46,11 @@ export default function CountryPage() {
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
         backgroundAttachment: 'fixed',
-        backgroundColor: 'rgba(26, 15, 10, 0.85)',
+        backgroundColor: 'rgba(var(--shade-rgb), 0.85)',
         backgroundBlendMode: 'multiply',
       }}
     >
+      <div className="theme-wash" aria-hidden="true" />
       <div className="country-page-content">
         <button onClick={() => navigate('/')} className="cultural-back-btn">
           ⬅ Back to Countries

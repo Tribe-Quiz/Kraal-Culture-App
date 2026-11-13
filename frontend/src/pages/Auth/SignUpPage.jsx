@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../../supabase';
 import './AuthPages.css';
+import ThemeToggle from '../../components/ThemeToggle';
 
 const logoPath = '/assets/images/KwaKhanye_logo.jpeg';
 
@@ -104,6 +105,7 @@ export default function SignUpPage() {
   if (success) {
     return (
       <div className="auth-container">
+        <ThemeToggle floating />
         <div className="auth-bg-blur">Kwa Khanye</div>
         <div className="auth-card" style={{ textAlign: 'center' }}>
           <div className="auth-brand" style={{ justifyContent: 'center', marginBottom: '1.5rem' }}>
@@ -146,7 +148,7 @@ export default function SignUpPage() {
           >
             Sign In to Your Account
           </button>
-          <p style={{ color: 'rgba(244,208,144,0.35)', fontSize: '0.78rem', marginTop: '1.25rem' }}>
+          <p style={{ color: 'rgba(var(--gold-rgb), 0.35)', fontSize: '0.78rem', marginTop: '1.25rem' }}>
             Kwa Khanye &mdash; Home of Culture
           </p>
         </div>
@@ -156,6 +158,7 @@ export default function SignUpPage() {
 
   return (
     <div className="auth-container">
+      <ThemeToggle floating />
       <div className="auth-bg-blur">Kwa Khanye</div>
       <div className="auth-card">
         <div className="auth-brand">

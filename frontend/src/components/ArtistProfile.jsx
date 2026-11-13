@@ -19,13 +19,13 @@ const S = {
   page: {
     minHeight: '100vh',
     fontFamily: "'DM Sans', sans-serif",
-    color: '#f4d090',
+    color: 'rgb(var(--gold-rgb))',
     position: 'relative',
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
     backgroundAttachment: 'fixed',
-    backgroundColor: 'rgba(10, 6, 3, 0.85)',
+    backgroundColor: 'rgba(var(--shade-rgb), 0.85)',
     backgroundBlendMode: 'multiply',
   },
 
@@ -37,11 +37,11 @@ const S = {
     display: 'flex',
     alignItems: 'center',
     gap: '0.4rem',
-    background: 'rgba(10,6,3,0.88)',
+    background: 'rgba(var(--shade-rgb), 0.88)',
     border: '1px solid rgba(198,122,52,0.35)',
     borderRadius: '50px',
     padding: '0.45rem 1rem',
-    color: '#f4d090',
+    color: 'rgb(var(--gold-rgb))',
     fontSize: '0.8rem',
     cursor: 'pointer',
     backdropFilter: 'blur(10px)',
@@ -59,7 +59,7 @@ const S = {
   heroOverlay: {
     position: 'absolute',
     inset: 0,
-    background: 'linear-gradient(to bottom, rgba(10,6,3,0.1) 0%, rgba(10,6,3,0.9) 100%)',
+    background: 'linear-gradient(to bottom, rgba(var(--shade-rgb), 0.1) 0%, rgba(var(--shade-rgb), 0.9) 100%)',
   },
   heroImg: {
     position: 'absolute',
@@ -75,7 +75,7 @@ const S = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: 'linear-gradient(135deg, #1a0d06 0%, #2a1508 60%, #140a04 100%)',
+    background: 'linear-gradient(135deg, rgb(var(--shade-rgb)) 0%, rgb(var(--shade-rgb)) 60%, rgb(var(--shade-rgb)) 100%)',
     fontSize: '8rem',
     opacity: 0.3,
   },
@@ -108,7 +108,7 @@ const S = {
     fontFamily: "'Cinzel', serif",
     fontSize: 'clamp(2.5rem, 8vw, 4.5rem)',
     fontWeight: 700,
-    color: '#f4d090',
+    color: 'rgb(var(--gold-rgb))',
     margin: '0 0 0.35rem',
     lineHeight: 1.1,
     textShadow: '0 2px 20px rgba(0,0,0,0.8)',
@@ -123,7 +123,7 @@ const S = {
   },
 
   heroTagline: {
-    color: 'rgba(244,208,144,0.65)',
+    color: 'rgba(var(--gold-rgb), 0.65)',
     fontSize: '0.92rem',
     fontWeight: 300,
     fontStyle: 'italic',
@@ -142,7 +142,7 @@ const S = {
     alignItems: 'center',
     gap: '0.75rem',
     marginBottom: '1.25rem',
-    color: 'rgba(244,208,144,0.3)',
+    color: 'rgba(var(--gold-rgb), 0.3)',
     fontSize: '0.72rem',
     textTransform: 'uppercase',
     letterSpacing: '0.14em',
@@ -172,12 +172,12 @@ const S = {
     lineHeight: 1,
   },
   bioCard: {
-    background: 'rgba(20,10,5,0.7)',
+    background: 'rgba(var(--shade-rgb), 0.7)',
     borderRadius: '16px',
     padding: '1.5rem',
     backdropFilter: 'blur(8px)',
     lineHeight: 1.75,
-    color: 'rgba(244,208,144,0.75)',
+    color: 'rgba(var(--gold-rgb), 0.75)',
     fontSize: '0.92rem',
     position: 'relative',
     zIndex: 1,
@@ -198,7 +198,7 @@ const S = {
     border: '1px solid #d48f38',
     borderRadius: '50px',
     padding: '0.4rem 1rem',
-    color: '#f4d090',
+    color: 'rgb(var(--gold-rgb))',
     fontSize: '0.78rem',
     cursor: 'pointer',
     textDecoration: 'none',
@@ -219,7 +219,7 @@ const S = {
   },
 
   hubCard: (disabled) => ({
-    background: 'rgba(20, 10, 5, 0.7)',
+    background: 'rgba(var(--shade-rgb), 0.7)',
     border: '1px solid rgba(212, 143, 56, 0.2)',
     borderRadius: '16px',
     padding: '1.5rem 1rem',
@@ -252,7 +252,7 @@ const S = {
     fontSize: '0.85rem',
     fontWeight: 700,
     letterSpacing: '0.12em',
-    color: '#f4d090',
+    color: 'rgb(var(--gold-rgb))',
     textTransform: 'uppercase',
     margin: 0,
   },
@@ -281,7 +281,7 @@ const S = {
   proverbText: {
     fontSize: '0.95rem',
     lineHeight: 1.6,
-    color: 'rgba(244,208,144,0.5)',
+    color: 'rgba(var(--gold-rgb), 0.5)',
     fontStyle: 'italic',
     fontFamily: "'Cormorant Garamond', serif",
     marginBottom: '0.3rem',
@@ -300,7 +300,7 @@ const S = {
     alignItems: 'center',
     justifyContent: 'center',
     gap: '1rem',
-    color: 'rgba(244,208,144,0.6)',
+    color: 'rgba(var(--gold-rgb), 0.6)',
     padding: '2rem',
     textAlign: 'center',
   },
@@ -385,8 +385,8 @@ export default function ArtistProfile() {
     return (
       <div style={{ ...S.page, ...S.center }}>
         <div style={{ fontSize: '3rem' }}>🎤</div>
-        <h2 style={{ fontFamily: "'Cinzel', serif", color: '#e8a84c', fontSize: '1.5rem' }}>Artist not found</h2>
-        <p style={{ color: 'rgba(244,208,144,0.5)', maxWidth: '320px' }}>
+        <h2 style={{ fontFamily: "'Cinzel', serif", color: 'rgb(var(--accent-text-rgb))', fontSize: '1.5rem' }}>Artist not found</h2>
+        <p style={{ color: 'rgba(var(--gold-rgb), 0.5)', maxWidth: '320px' }}>
           This artist profile doesn't exist or hasn't been set up yet.
         </p>
         <button
@@ -575,7 +575,7 @@ export default function ArtistProfile() {
 
         <p style={{
           textAlign: 'center', fontSize: '0.7rem',
-          color: 'rgba(244,208,144,0.15)', letterSpacing: '0.06em',
+          color: 'rgba(var(--gold-rgb), 0.15)', letterSpacing: '0.06em',
           marginTop: '2rem',
         }}>
           AUTHENTIC AFRICAN EXPERIENCES

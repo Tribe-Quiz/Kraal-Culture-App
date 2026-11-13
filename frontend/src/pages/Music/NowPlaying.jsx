@@ -187,9 +187,9 @@ function NowPlaying() {
   if (!currentTrack) {
     return (
       <div className="np-page" style={{ backgroundImage: `url(${nowPlayingBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        <div className="np-overlay" style={{ background: 'rgba(8, 4, 1, 0.85)' }} />
-        <div style={{ textAlign: 'center', marginTop: '40vh', color: '#D4A855' }}>
-          No track selected. <button onClick={() => navigate('/music')}>Go back</button>
+        <div className="np-overlay" />
+        <div style={{ textAlign: 'center', marginTop: '40vh', color: 'rgb(var(--accent-text-rgb))' }}>
+          No track selected. <button onClick={() => navigate(location.state?.returnTo || '/music')}>Go back</button>
         </div>
       </div>
     );
@@ -205,12 +205,12 @@ function NowPlaying() {
         backgroundAttachment: 'fixed'
       }}
     >
-      <div className="np-overlay" style={{ background: 'rgba(8, 4, 1, 0.85)' }} />
+      <div className="np-overlay" />
       <audio ref={audioRef} />
 
       {/* Top bar */}
       <div className="np-topbar">
-        <button className="np-back-btn" onClick={() => navigate('/music')}>
+        <button className="np-back-btn" onClick={() => navigate(location.state?.returnTo || '/music')}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <polyline points="15 18 9 12 15 6" />
           </svg>

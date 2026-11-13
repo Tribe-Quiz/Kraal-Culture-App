@@ -1,0 +1,75 @@
+/* Theme tokens. Dark is the default; light is applied with data-theme="light" on <html>.
+   Components use these as rgb(var(--x-rgb)) / rgba(var(--x-rgb), a). */
+:root {
+  color-scheme: dark;
+  --shade-rgb: 16, 8, 3;          /* page / panel / overlay surfaces */
+  --hi-rgb: 255, 255, 255;        /* subtle highlights and hairlines */
+  --text-rgb: 245, 230, 211;      /* body text */
+  --gold-rgb: 244, 208, 144;      /* headings and emphasis text */
+  --accent-text-rgb: 232, 168, 76;/* accent-coloured text and links */
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --shade-rgb: 255, 248, 236;
+  --hi-rgb: 90, 50, 10;
+  --text-rgb: 52, 30, 12;
+  --gold-rgb: 112, 62, 14;
+  --accent-text-rgb: 150, 80, 16;
+}
+
+body { transition: background-color .25s ease, color .25s ease; }
+
+/* In light mode keep photo-backed hero images readable and cards crisp */
+:root[data-theme="light"] .site-header { box-shadow: 0 8px 28px rgba(90, 50, 10, 0.18) !important; }
+:root[data-theme="light"] img { filter: none; }
+
+/* Toggle button */
+.theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; flex: 0 0 auto;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--hi-rgb), 0.25);
+  background: rgba(var(--shade-rgb), 0.55);
+  color: rgb(var(--accent-text-rgb));
+  cursor: pointer; padding: 0;
+  transition: transform .15s ease, background .2s ease;
+}
+.theme-toggle:hover { transform: scale(1.08); background: rgba(var(--shade-rgb), 0.85); }
+.theme-toggle:focus-visible { outline: 2px solid rgb(var(--accent-text-rgb)); outline-offset: 2px; }
+.theme-toggle--floating { position: fixed; top: 14px; right: 14px; z-index: 10000; backdrop-filter: blur(8px); }
+
+/* Music page palette tokens (defined in Music.css / NowPlaying.css) */
+:root[data-theme="light"] {
+  --clr-gold: #9a5a14;
+  --clr-gold-bright: #7a4208;
+  --clr-gold-dim: #8a6a3a;
+  --clr-cream: #341e0c;
+  --clr-cream-dim: #6b4a2a;
+  --clr-text: #4a2e14;
+  --clr-text-muted: #7a6040;
+  --clr-terra: #9b4a30;
+  --clr-gold-glow: rgba(154, 90, 20, 0.16);
+  --clr-border: rgba(90, 50, 10, 0.2);
+  --clr-border-soft: rgba(90, 50, 10, 0.1);
+  --clr-border-mid: rgba(90, 50, 10, 0.3);
+}
+
+/* Light mode: dark text-shadows become soft cream halos so text stays crisp */
+:root[data-theme="light"] .brand-logo-text,
+:root[data-theme="light"] .profile-name { text-shadow: none; }
+:root[data-theme="light"] .hero-main-title,
+:root[data-theme="light"] .hero-sub-tagline { text-shadow: 0 1px 12px rgba(255, 248, 236, 0.9); }
+
+/* Light mode: pages that blend a dark pattern photo get a cream wash instead */
+.theme-wash { display: none; }
+:root[data-theme="light"] .country-page-container { background-blend-mode: normal !important; }
+:root[data-theme="light"] .theme-wash {
+  display: block; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: rgba(var(--shade-rgb), 0.88);
+}
+:root[data-theme="light"] .country-page-container > .country-page-content { position: relative; z-index: 1; }
+
+:root[data-theme="light"] .country-name-large,
+:root[data-theme="light"] .country-heading-large,
+:root[data-theme="light"] .country-subheading-large { text-shadow: none; }

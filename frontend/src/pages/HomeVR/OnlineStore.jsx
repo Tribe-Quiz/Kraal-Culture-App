@@ -5,14 +5,14 @@ import { supabase } from '../../supabase';
 const S = {
   page: {
     minHeight: '100vh',
-    background: '#0a0603',
+    background: 'rgb(var(--shade-rgb))',
     fontFamily: "'DM Sans', sans-serif",
-    color: '#f4d090',
+    color: 'rgb(var(--gold-rgb))',
   },
 
   /* ── HEADER ── */
   header: {
-    background: 'linear-gradient(135deg, #0f0804 0%, #1a0d06 50%, #0f0804 100%)',
+    background: 'linear-gradient(135deg, rgb(var(--shade-rgb)) 0%, rgb(var(--shade-rgb)) 50%, rgb(var(--shade-rgb)) 100%)',
     borderBottom: '1px solid rgba(198,122,52,0.3)',
     padding: '3rem 2rem 2.5rem',
     textAlign: 'center',
@@ -34,7 +34,7 @@ const S = {
     fontFamily: "'Cormorant Garamond', serif",
     fontSize: 'clamp(4rem,12vw,10rem)',
     fontWeight: 700,
-    color: '#f4d090',
+    color: 'rgb(var(--gold-rgb))',
     opacity: 0.04,
     whiteSpace: 'nowrap',
     letterSpacing: '0.15em',
@@ -63,7 +63,7 @@ const S = {
     fontWeight: 700,
     margin: '0 0 0.5rem',
     lineHeight: 1,
-    background: 'linear-gradient(135deg, #f4d090 0%, #c67a34 50%, #f4d090 100%)',
+    background: 'linear-gradient(135deg, rgb(var(--gold-rgb)) 0%, #c67a34 50%, rgb(var(--gold-rgb)) 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
@@ -73,7 +73,7 @@ const S = {
     zIndex: 1,
   },
   subtitle: {
-    color: 'rgba(244,208,144,0.6)',
+    color: 'rgba(var(--gold-rgb), 0.6)',
     fontSize: '1rem',
     fontWeight: 300,
     maxWidth: '480px',
@@ -93,7 +93,7 @@ const S = {
   },
   statBox: {
     textAlign: 'center',
-    background: 'rgba(0,0,0,0.35)',
+    background: 'rgba(var(--shade-rgb), 0.35)',
     border: '1px solid rgba(198,122,52,0.2)',
     borderRadius: '12px',
     padding: '0.6rem 1.25rem',
@@ -104,7 +104,7 @@ const S = {
     color: '#c67a34', lineHeight: 1, display: 'block',
   },
   statLabel: {
-    fontSize: '0.68rem', color: 'rgba(244,208,144,0.6)',
+    fontSize: '0.68rem', color: 'rgba(var(--gold-rgb), 0.6)',
     textTransform: 'uppercase', letterSpacing: '0.1em',
     marginTop: '0.2rem', display: 'block',
   },
@@ -140,7 +140,7 @@ const S = {
   grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))', gap: '1.5rem' },
 
   card: (hovered) => ({
-    background: 'rgba(16,8,4,0.9)',
+    background: 'rgba(var(--shade-rgb), 0.9)',
     border: `1px solid ${hovered ? 'rgba(198,122,52,0.7)' : 'rgba(198,122,52,0.25)'}`,
     borderRadius: '16px', overflow: 'hidden', cursor: 'pointer',
     transition: 'transform 0.25s, border-color 0.25s, box-shadow 0.25s',
@@ -155,23 +155,23 @@ const S = {
   }),
   badge: {
     position: 'absolute', top: '0.65rem', right: '0.65rem',
-    background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(6px)',
+    background: 'rgba(var(--shade-rgb), 0.75)', backdropFilter: 'blur(6px)',
     borderRadius: '50px', padding: '0.2rem 0.65rem',
-    fontSize: '0.68rem', color: '#f4d090', letterSpacing: '0.04em',
+    fontSize: '0.68rem', color: 'rgb(var(--gold-rgb))', letterSpacing: '0.04em',
     border: '1px solid rgba(198,122,52,0.3)',
   },
   inStockDot: (inStock) => ({
     position: 'absolute', bottom: '0.65rem', left: '0.65rem',
     display: 'flex', alignItems: 'center', gap: '0.35rem',
-    background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(6px)',
+    background: 'rgba(var(--shade-rgb), 0.7)', backdropFilter: 'blur(6px)',
     borderRadius: '50px', padding: '0.2rem 0.65rem',
     fontSize: '0.68rem', color: inStock ? '#6dbf8a' : '#e05252',
     border: `1px solid ${inStock ? 'rgba(109,191,138,0.3)' : 'rgba(224,82,82,0.3)'}`,
   }),
   cardBody: { padding: '1.25rem' },
   cardCategory: { fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#c67a34', display: 'block', marginBottom: '0.3rem' },
-  cardTitle: { fontFamily: "'Cormorant Garamond', serif", fontSize: '1.2rem', fontWeight: 700, color: '#f4d090', margin: '0 0 0.2rem', lineHeight: 1.2 },
-  cardDesc: { fontSize: '0.8rem', color: 'rgba(244,208,144,0.6)', lineHeight: 1.55, margin: '0 0 0.9rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' },
+  cardTitle: { fontFamily: "'Cormorant Garamond', serif", fontSize: '1.2rem', fontWeight: 700, color: 'rgb(var(--gold-rgb))', margin: '0 0 0.2rem', lineHeight: 1.2 },
+  cardDesc: { fontSize: '0.8rem', color: 'rgba(var(--gold-rgb), 0.6)', lineHeight: 1.55, margin: '0 0 0.9rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' },
   cardFooter: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' },
   price: { fontFamily: "'Cormorant Garamond', serif", fontSize: '1.15rem', fontWeight: 700, color: '#c67a34' },
   addBtn: (added) => ({
@@ -185,19 +185,19 @@ const S = {
 
   /* modal */
   overlay: {
-    position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.88)',
+    position: 'fixed', inset: 0, background: 'rgba(var(--shade-rgb), 0.88)',
     backdropFilter: 'blur(14px)', zIndex: 1000,
     display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem',
   },
   modal: {
-    background: '#0f0804', border: '1px solid rgba(198,122,52,0.5)',
+    background: 'rgb(var(--shade-rgb))', border: '1px solid rgba(198,122,52,0.5)',
     borderRadius: '20px', width: '100%', maxWidth: '480px',
     overflow: 'hidden', position: 'relative',
   },
   modalHero: { height: '220px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '6rem' },
   modalBody: { padding: '1.75rem' },
-  modalTitle: { fontFamily: "'Cormorant Garamond', serif", fontSize: '1.9rem', fontWeight: 700, color: '#f4d090', margin: '0 0 0.3rem', lineHeight: 1.15 },
-  modalDesc: { color: 'rgba(244,208,144,0.65)', fontSize: '0.9rem', lineHeight: 1.7, margin: '0 0 1.25rem' },
+  modalTitle: { fontFamily: "'Cormorant Garamond', serif", fontSize: '1.9rem', fontWeight: 700, color: 'rgb(var(--gold-rgb))', margin: '0 0 0.3rem', lineHeight: 1.15 },
+  modalDesc: { color: 'rgba(var(--gold-rgb), 0.65)', fontSize: '0.9rem', lineHeight: 1.7, margin: '0 0 1.25rem' },
   modalPrice: { fontFamily: "'Cormorant Garamond', serif", fontSize: '1.6rem', fontWeight: 700, color: '#c67a34', display: 'block', marginBottom: '1.25rem' },
   modalAction: {
     display: 'block', width: '100%', border: 'none', borderRadius: '10px',
@@ -207,7 +207,7 @@ const S = {
   },
   closeBtn: {
     position: 'absolute', top: '1rem', right: '1rem',
-    background: 'rgba(0,0,0,0.7)', border: 'none', color: '#f4d090',
+    background: 'rgba(var(--shade-rgb), 0.7)', border: 'none', color: 'rgb(var(--gold-rgb))',
     width: '32px', height: '32px', borderRadius: '50%',
     cursor: 'pointer', fontSize: '1rem', display: 'flex',
     alignItems: 'center', justifyContent: 'center', zIndex: 10,

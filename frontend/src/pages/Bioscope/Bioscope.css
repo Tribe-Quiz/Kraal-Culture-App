@@ -7,7 +7,7 @@
   background-attachment: fixed;
   background-repeat: no-repeat;
   font-family: 'DM Sans', sans-serif;
-  color: #f4d090;
+  color: rgb(var(--gold-rgb));
   padding-bottom: 4rem;
 }
 
@@ -27,7 +27,7 @@
   font-family: 'Playfair Display', serif;
   font-size: clamp(5rem, 15vw, 12rem);
   font-weight: 700;
-  color: #f4d090;
+  color: rgb(var(--gold-rgb));
   opacity: 0.08;
   white-space: nowrap;
   pointer-events: none;
@@ -55,14 +55,14 @@
   font-weight: 700;
   margin: 0 0 0.75rem;
   line-height: 1.1;
-  background: linear-gradient(135deg, #f4d090 0%, #c67a34 100%);
+  background: linear-gradient(135deg, rgb(var(--gold-rgb)) 0%, #c67a34 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .bsc-hero p {
-  color: rgba(244,208,144,0.85);
+  color: rgba(var(--gold-rgb), 0.85);
   font-size: 1rem;
   font-weight: 300;
   max-width: 480px;
@@ -81,16 +81,16 @@
   left: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  color: rgba(244,208,144,0.35);
+  color: rgba(var(--gold-rgb), 0.35);
 }
 
 .bsc-search {
   width: 100%;
-  background: rgba(28,15,10,0.8);
+  background: rgba(var(--shade-rgb), 0.8);
   border: 1px solid rgba(198,122,52,0.3);
   border-radius: 50px;
   padding: 0.75rem 1rem 0.75rem 2.75rem;
-  color: #f4d090;
+  color: rgb(var(--gold-rgb));
   font-family: 'DM Sans', sans-serif;
   font-size: 0.95rem;
   outline: none;
@@ -99,7 +99,7 @@
 }
 
 .bsc-search::placeholder {
-  color: rgba(244,208,144,0.5);
+  color: rgba(var(--gold-rgb), 0.5);
 }
 
 .bsc-search:focus {
@@ -116,12 +116,12 @@
 }
 
 .bsc-tab {
-  background: rgba(20,10,6,0.7);
+  background: rgba(var(--shade-rgb), 0.7);
   backdrop-filter: blur(4px);
   border: 1px solid rgba(198,122,52,0.3);
   border-radius: 50px;
   padding: 0.45rem 1.25rem;
-  color: rgba(244,208,144,0.8);
+  color: rgba(var(--gold-rgb), 0.8);
   font-family: 'DM Sans', sans-serif;
   font-size: 0.85rem;
   cursor: pointer;
@@ -131,7 +131,7 @@
 
 .bsc-tab:hover {
   border-color: rgba(198,122,52,0.7);
-  color: #f4d090;
+  color: rgb(var(--gold-rgb));
   background: rgba(198,122,52,0.2);
 }
 
@@ -152,7 +152,7 @@
 
 .bsc-stat {
   text-align: center;
-  background: rgba(0,0,0,0.4);
+  background: rgba(var(--shade-rgb), 0.4);
   backdrop-filter: blur(4px);
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -168,7 +168,7 @@
 
 .bsc-stat-label {
   font-size: 0.75rem;
-  color: rgba(244,208,144,0.8);
+  color: rgba(var(--gold-rgb), 0.8);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-top: 0.25rem;
@@ -184,7 +184,7 @@
 }
 
 .bsc-card {
-  background: rgba(20,10,6,0.85);
+  background: rgba(var(--shade-rgb), 0.85);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(198,122,52,0.3);
   border-radius: 16px;
@@ -225,12 +225,12 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  background: rgba(0,0,0,0.7);
+  background: rgba(var(--shade-rgb), 0.7);
   backdrop-filter: blur(8px);
   border-radius: 50px;
   padding: 0.25rem 0.65rem;
   font-size: 0.72rem;
-  color: #f4d090;
+  color: rgb(var(--gold-rgb));
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
@@ -244,7 +244,7 @@
   font-size: 1.15rem;
   font-weight: 600;
   margin: 0 0 0.25rem;
-  color: #f4d090;
+  color: rgb(var(--gold-rgb));
   line-height: 1.3;
 }
 
@@ -257,7 +257,7 @@
 
 .bsc-card-desc {
   font-size: 0.83rem;
-  color: rgba(244,208,144,0.7);
+  color: rgba(var(--gold-rgb), 0.7);
   line-height: 1.6;
   margin: 0 0 1rem;
   display: -webkit-box;
@@ -274,7 +274,7 @@
 
 .bsc-card-year {
   font-size: 0.78rem;
-  color: rgba(244,208,144,0.5);
+  color: rgba(var(--gold-rgb), 0.5);
   letter-spacing: 0.05em;
 }
 
@@ -282,7 +282,7 @@
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  background: rgba(0,0,0,0.5);
+  background: rgba(var(--shade-rgb), 0.5);
   border: 1px solid rgba(198,122,52,0.5);
   border-radius: 50px;
   padding: 0.3rem 0.85rem;
@@ -301,8 +301,8 @@
 .bsc-empty {
   text-align: center;
   padding: 5rem 2rem;
-  color: rgba(244,208,144,0.6);
-  background: rgba(0,0,0,0.4);
+  color: rgba(var(--gold-rgb), 0.6);
+  background: rgba(var(--shade-rgb), 0.4);
   backdrop-filter: blur(4px);
   border-radius: 20px;
   margin: 2rem;
@@ -337,7 +337,7 @@
 .bsc-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.85);
+  background: rgba(var(--shade-rgb), 0.85);
   backdrop-filter: blur(12px);
   z-index: 1000;
   display: flex;
@@ -350,7 +350,7 @@
 @keyframes bscFadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .bsc-modal {
-  background: #140a05;
+  background: rgb(var(--shade-rgb));
   border: 1px solid rgba(198,122,52,0.5);
   border-radius: 20px;
   width: 100%;
@@ -369,9 +369,9 @@
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: rgba(0,0,0,0.7);
+  background: rgba(var(--shade-rgb), 0.7);
   border: none;
-  color: #f4d090;
+  color: rgb(var(--gold-rgb));
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -407,17 +407,17 @@
   font-family: 'Playfair Display', serif;
   font-size: 1.6rem;
   font-weight: 700;
-  color: #f4d090;
+  color: rgb(var(--gold-rgb));
   margin: 0 0 0.35rem;
   line-height: 1.2;
 }
 .bsc-modal-artist {
-  color: rgba(244,208,144,0.5);
+  color: rgba(var(--gold-rgb), 0.5);
   font-size: 0.85rem;
   margin: 0 0 1rem;
 }
 .bsc-modal-desc {
-  color: rgba(244,208,144,0.65);
+  color: rgba(var(--gold-rgb), 0.65);
   font-size: 0.9rem;
   line-height: 1.7;
   margin: 0 0 1.5rem;
@@ -443,7 +443,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  color: rgba(244,208,144,0.35);
+  color: rgba(var(--gold-rgb), 0.35);
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;

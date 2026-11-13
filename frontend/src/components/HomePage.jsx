@@ -80,7 +80,7 @@ export default function HomePage() {
         className="global-app-container" 
         style={{
           backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
-          backgroundColor: '#1a0d06',
+          backgroundColor: 'rgb(var(--shade-rgb))',
         }}
       >
         <div className="hero-viewport">

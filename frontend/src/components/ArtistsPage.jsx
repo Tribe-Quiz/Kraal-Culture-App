@@ -67,7 +67,7 @@ export default function ArtistsPage() {
 
   return (
     <div style={{ padding: '4rem 1rem', maxWidth: '660px', margin: '0 auto' }}>
-      <button onClick={() => navigate(`/country/${countryId}`)} style={{ marginBottom: '1.5rem', background: 'none', border: 'none', color: '#e8a84c', cursor: 'pointer' }}>
+      <button onClick={() => navigate(`/country/${countryId}`)} style={{ marginBottom: '1.5rem', background: 'none', border: 'none', color: 'rgb(var(--accent-text-rgb))', cursor: 'pointer' }}>
         ← Back to Cultures
       </button>
       <h2 className="explore-card-heading">Choose an Artist</h2>
@@ -85,8 +85,8 @@ export default function ArtistsPage() {
             padding: '0.6rem 1rem',
             borderRadius: '50px',
             border: '1px solid rgba(232,168,76,0.3)',
-            background: 'rgba(0,0,0,0.4)',
-            color: '#f5e6d3',
+            background: 'rgba(var(--shade-rgb), 0.4)',
+            color: 'rgb(var(--text-rgb))',
             fontSize: '0.9rem',
             outline: 'none',
             backdropFilter: 'blur(4px)',
@@ -119,7 +119,7 @@ export default function ArtistsPage() {
         ))}
       </div>
       {filteredArtists.length === 0 && (
-        <p style={{ textAlign: 'center', color: 'rgba(245,230,211,0.5)', marginTop: '2rem' }}>
+        <p style={{ textAlign: 'center', color: 'rgba(var(--text-rgb), 0.5)', marginTop: '2rem' }}>
           No artists match your search.
         </p>
       )}

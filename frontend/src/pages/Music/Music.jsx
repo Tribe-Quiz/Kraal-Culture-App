@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import MyUploads from './MyUploads';
 import './Music.css';
 import musicBgImage from '../../assets/images/Music Back.jpg';
 
@@ -18,6 +19,9 @@ function Music() {
   const navigate = useNavigate();
   const location = useLocation();
   const artistFromUrl = new URLSearchParams(location.search).get('artist');
+
+  const tab = new URLSearchParams(location.search).get('tab') === 'uploads' ? 'uploads' : 'discover';
+  const setTab = (next) => navigate(next === 'uploads' ? '/music?tab=uploads' : '/music', { replace: true });
 
   const [searchQuery, setSearchQuery] = useState(artistFromUrl || '');
   const [searchResults, setSearchResults] = useState([]);
@@ -108,6 +112,7 @@ function Music() {
                 ? `Search within ${artistFromUrl}'s discography or type a new query`
                 : 'Search any song in the world and play 30 second previews'}
             </p>
+            {tab === 'discover' && (
             <div className="music-search-wrap">
               <span className="music-search-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -131,10 +136,18 @@ function Music() {
                 </button>
               )}
             </div>
+            )}
           </div>
         </header>
 
-        {visibleError && (
+        <div className="music-tabs" role="tablist" aria-label="Music sections">
+          <button role="tab" aria-selected={tab === 'discover'} className={`music-tab${tab === 'discover' ? ' is-active' : ''}`} onClick={() => setTab('discover')}>Discover</button>
+          <button role="tab" aria-selected={tab === 'uploads'} className={`music-tab${tab === 'uploads' ? ' is-active' : ''}`} onClick={() => setTab('uploads')}>My Uploads</button>
+        </div>
+
+        {tab === 'uploads' && <MyUploads />}
+
+        {tab === 'discover' && visibleError && (
           <div className="error-banner" role="alert">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
@@ -143,14 +156,14 @@ function Music() {
           </div>
         )}
 
-        {loading && hasQuery && (
+        {tab === 'discover' && loading && hasQuery && (
           <div className="loading-container">
             <div className="loading-spinner"><span /><span /><span /></div>
             <p className="loading-text">Finding your sound…</p>
           </div>
         )}
 
-        {!(loading && hasQuery) && (
+        {tab === 'discover' && !(loading && hasQuery) && (
           <div className="music-tracklist">
             {!hasQuery && (
               <div className="welcome-state">

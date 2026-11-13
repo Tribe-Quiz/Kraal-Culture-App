@@ -28,7 +28,7 @@ export default function Bioscope() {
         repeating-linear-gradient(135deg, #5c2e1a 0px, #5c2e1a 4px, #8b4a18 4px, #8b4a18 12px)
       `,
       backgroundBlendMode: 'overlay',
-      backgroundColor: '#2a1a0e',
+      backgroundColor: 'rgb(var(--shade-rgb))',
     }}>
       <div style={{
         position: 'relative',

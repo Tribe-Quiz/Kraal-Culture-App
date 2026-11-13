@@ -68,7 +68,7 @@ function App() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          background: '#1a0d06',
+          background: 'rgb(var(--shade-rgb))',
           color: '#fff',
           fontSize: '20px',
         }}

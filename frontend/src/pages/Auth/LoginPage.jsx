@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../../supabase';
 import './AuthPages.css';
+import ThemeToggle from '../../components/ThemeToggle';
 
 // Updated logo path
 const logoPath = '/assets/images/KwaKhanye_logo.jpeg';
@@ -44,6 +45,7 @@ export default function LoginPage() {
 
   return (
     <div className="auth-container">
+      <ThemeToggle floating />
       <div className="auth-bg-blur">Kwa Khanye</div>
       <div className="auth-card">
         <div className="auth-brand">

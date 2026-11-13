@@ -20,15 +20,21 @@ export default function HomeVR() {
   return (
     <div style={{
       position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
+      inset: 0,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'rgb(var(--shade-rgb))',
+    }}>
+    {/* The stage keeps the artwork's aspect ratio so the percentage-based hotspots stay
+        aligned on every screen size (a cropped background would shift them on phones). */}
+    <div style={{
+      position: 'relative',
+      aspectRatio: '1408 / 768',
+      width: 'min(100vw, calc(100vh * 1408 / 768))',
       backgroundImage: `url(${homeVRImage})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
+      backgroundSize: '100% 100%',
       backgroundRepeat: 'no-repeat',
-      backgroundColor: '#0a0603',
     }}>
       {/* NFT FRAME HOTSPOT (left) */}
       <div
@@ -66,7 +72,7 @@ export default function HomeVR() {
           whiteSpace: 'nowrap',
         }}>
           <div style={{
-            background: 'rgba(10,6,3,0.92)',
+            background: 'rgba(var(--shade-rgb), 0.92)',
             border: '1px solid rgba(198,122,52,0.6)',
             borderRadius: '8px',
             padding: '0.5rem 1.25rem',
@@ -76,7 +82,7 @@ export default function HomeVR() {
               fontFamily: "'Cormorant Garamond', serif",
               fontSize: 'clamp(1.1rem, 2vw, 1.6rem)',
               fontWeight: 700,
-              color: '#f4d090',
+              color: 'rgb(var(--gold-rgb))',
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
             }}>NFT Gallery</div>
@@ -143,7 +149,7 @@ export default function HomeVR() {
           whiteSpace: 'nowrap',
         }}>
           <div style={{
-            background: 'rgba(10,6,3,0.92)',
+            background: 'rgba(var(--shade-rgb), 0.92)',
             border: '1px solid rgba(198,122,52,0.6)',
             borderRadius: '8px',
             padding: '0.5rem 1.25rem',
@@ -153,7 +159,7 @@ export default function HomeVR() {
               fontFamily: "'Cormorant Garamond', serif",
               fontSize: 'clamp(1.1rem, 2vw, 1.6rem)',
               fontWeight: 700,
-              color: '#f4d090',
+              color: 'rgb(var(--gold-rgb))',
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
             }}>Online Store</div>
@@ -206,11 +212,12 @@ export default function HomeVR() {
           fontSize: '0.72rem',
           letterSpacing: '0.22em',
           textTransform: 'uppercase',
-          color: 'rgba(244,208,144,0.8)',
+          color: 'rgba(var(--gold-rgb), 0.8)',
           margin: 0,
           textShadow: '0 1px 4px black',
-        }}>Hover over a frame to explore</p>
+        }}>Tap or hover over a frame</p>
       </div>
+    </div>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../supabase';
 import { LogOut } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
 function getDisplayName(session) {
   if (!session) return null;
@@ -120,6 +121,7 @@ export default function Header({ session }) {
 
       <nav className="nav-container">
         <ul className="nav-list">
+          <li><ThemeToggle /></li>
           {session ? (
             <li>
               <button onClick={handleSignOut} disabled={signingOut} className="nav-action-btn logout-btn">

@@ -174,3 +174,82 @@ create policy "avatars: delete own files"
   to authenticated
   using (bucket_id = 'avatars'
          and (storage.foldername(name))[1] = (select auth.uid())::text);
+
+-- ─────────────────────────────────────────────────────────────────────────
+-- 6. User uploads: private music files + a table describing them
+--    Any signed-in user can upload; each user sees and plays only their own.
+--    Files live in the PRIVATE 'user-music' bucket under <user-id>/<file>
+--    and are played through short-lived signed URLs.
+-- ─────────────────────────────────────────────────────────────────────────
+create table if not exists public.user_tracks (
+  id            uuid primary key default gen_random_uuid(),
+  user_id       uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  title         text not null check (char_length(title)  between 1 and 120),
+  artist        text not null check (char_length(artist) between 1 and 120),
+  storage_path  text not null unique,
+  mime_type     text not null,
+  size_bytes    bigint not null check (size_bytes > 0 and size_bytes <= 20971520),
+  duration_sec  integer check (duration_sec is null or duration_sec >= 0),
+  created_at    timestamptz not null default now(),
+  -- the file must sit inside the uploader's own folder
+  constraint user_tracks_path_in_own_folder check (storage_path like user_id::text || '/%')
+);
+
+create index if not exists user_tracks_user_idx on public.user_tracks (user_id, created_at desc);
+
+alter table public.user_tracks enable row level security;
+
+drop policy if exists "user_tracks: read own" on public.user_tracks;
+create policy "user_tracks: read own"
+  on public.user_tracks for select
+  to authenticated
+  using (user_id = (select auth.uid()));
+
+drop policy if exists "user_tracks: insert own" on public.user_tracks;
+create policy "user_tracks: insert own"
+  on public.user_tracks for insert
+  to authenticated
+  with check (user_id = (select auth.uid()));
+
+drop policy if exists "user_tracks: update own" on public.user_tracks;
+create policy "user_tracks: update own"
+  on public.user_tracks for update
+  to authenticated
+  using (user_id = (select auth.uid()))
+  with check (user_id = (select auth.uid()));
+
+drop policy if exists "user_tracks: delete own" on public.user_tracks;
+create policy "user_tracks: delete own"
+  on public.user_tracks for delete
+  to authenticated
+  using (user_id = (select auth.uid()));
+
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('user-music', 'user-music', false, 20971520,
+        array['audio/mpeg', 'audio/mp4', 'audio/x-m4a', 'audio/aac', 'audio/wav',
+              'audio/x-wav', 'audio/ogg', 'audio/webm', 'audio/flac'])
+on conflict (id) do update
+  set public             = excluded.public,
+      file_size_limit    = excluded.file_size_limit,
+      allowed_mime_types = excluded.allowed_mime_types;
+
+drop policy if exists "user-music: read own files" on storage.objects;
+create policy "user-music: read own files"
+  on storage.objects for select
+  to authenticated
+  using (bucket_id = 'user-music'
+         and (storage.foldername(name))[1] = (select auth.uid())::text);
+
+drop policy if exists "user-music: upload to own folder" on storage.objects;
+create policy "user-music: upload to own folder"
+  on storage.objects for insert
+  to authenticated
+  with check (bucket_id = 'user-music'
+              and (storage.foldername(name))[1] = (select auth.uid())::text);
+
+drop policy if exists "user-music: delete own files" on storage.objects;
+create policy "user-music: delete own files"
+  on storage.objects for delete
+  to authenticated
+  using (bucket_id = 'user-music'
+         and (storage.foldername(name))[1] = (select auth.uid())::text);

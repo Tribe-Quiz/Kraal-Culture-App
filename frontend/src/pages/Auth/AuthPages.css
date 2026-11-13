@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  background: radial-gradient(ellipse at 50% 20%, #2a1005 0%, #180803 50%, #0e0603 100%);
+  background: radial-gradient(ellipse at 50% 20%, rgb(var(--shade-rgb)) 0%, rgb(var(--shade-rgb)) 50%, rgb(var(--shade-rgb)) 100%);
   position: relative;
   font-family: 'Plus Jakarta Sans', sans-serif;
   overflow: hidden;
@@ -22,7 +22,7 @@
   font-family: 'Cinzel', serif;
   font-size: clamp(4rem, 14vw, 9rem);
   font-weight: 700;
-  color: #e8a84c;
+  color: rgb(var(--accent-text-rgb));
   opacity: 0.025;
   letter-spacing: 0.4em;
   white-space: nowrap;
@@ -58,7 +58,7 @@
 .auth-card {
   width: 100%;
   max-width: 460px;
-  background: rgba(20, 10, 5, 0.82);
+  background: rgba(var(--shade-rgb), 0.82);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(200, 122, 62, 0.3);
@@ -95,7 +95,7 @@
 
 .brand-name {
   font-family: 'Cinzel', serif;
-  color: #e8a84c;
+  color: rgb(var(--accent-text-rgb));
   font-size: 1.1rem;
   letter-spacing: 0.08em;
   font-weight: 700;
@@ -103,7 +103,7 @@
 
 .auth-title {
   font-family: 'Cinzel', serif;
-  color: #e8a84c;
+  color: rgb(var(--accent-text-rgb));
   font-size: 2rem;
   font-weight: 700;
   margin: 0 0 0.4rem;
@@ -112,7 +112,7 @@
 }
 
 .auth-subtitle {
-  color: rgba(245, 230, 211, 0.5);
+  color: rgba(var(--text-rgb), 0.5);
   font-size: 0.88rem;
   margin-bottom: 2rem;
   font-weight: 300;
@@ -150,7 +150,7 @@
   display: flex;
   align-items: center;
   margin: 1.5rem 0;
-  color: rgba(232, 168, 76, 0.35);
+  color: rgba(var(--accent-text-rgb), 0.35);
   font-size: 0.8rem;
   letter-spacing: 0.06em;
 }
@@ -179,7 +179,7 @@
 }
 
 .form-label {
-  color: rgba(232, 168, 76, 0.75);
+  color: rgba(var(--accent-text-rgb), 0.75);
   font-size: 0.8rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -188,7 +188,7 @@
 .input-action-btn {
   background: none;
   border: none;
-  color: rgba(232, 168, 76, 0.5);
+  color: rgba(var(--accent-text-rgb), 0.5);
   font-size: 0.78rem;
   cursor: pointer;
   font-family: inherit;
@@ -196,7 +196,7 @@
   transition: color 0.2s;
 }
 
-.input-action-btn:hover { color: #e8a84c; }
+.input-action-btn:hover { color: rgb(var(--accent-text-rgb)); }
 
 .input-wrapper {
   position: relative;
@@ -206,11 +206,11 @@
 
 .form-input {
   width: 100%;
-  background: rgba(30, 14, 7, 0.6);
+  background: rgba(var(--shade-rgb), 0.6);
   border: 1px solid rgba(200, 122, 62, 0.35);
   border-radius: 8px;
   padding: 0.8rem 1rem;
-  color: #f5e6d3;
+  color: rgb(var(--text-rgb));
   font-size: 0.9rem;
   font-family: 'Plus Jakarta Sans', sans-serif;
   transition: border-color 0.2s, box-shadow 0.2s;
@@ -223,26 +223,26 @@
 }
 
 .form-input::placeholder {
-  color: rgba(232, 168, 76, 0.2);
+  color: rgba(var(--accent-text-rgb), 0.2);
 }
 
 .password-toggle-icon {
   position: absolute;
   right: 1rem;
   cursor: pointer;
-  color: rgba(232, 168, 76, 0.35);
+  color: rgba(var(--accent-text-rgb), 0.35);
   font-size: 1rem;
   transition: color 0.2s;
   user-select: none;
 }
 
-.password-toggle-icon:hover { color: #e8a84c; }
+.password-toggle-icon:hover { color: rgb(var(--accent-text-rgb)); }
 
 /* Submit */
 .submit-btn {
   width: 100%;
   background: linear-gradient(180deg, #c87a3e 0%, #a05a28 100%);
-  color: #fff8f0;
+  color: rgb(var(--text-rgb));
   border: none;
   padding: 0.9rem 1rem;
   border-radius: 8px;
@@ -271,18 +271,18 @@
 .forgot-password-link {
   display: inline-block;
   margin-top: 1rem;
-  color: rgba(232, 168, 76, 0.5);
+  color: rgba(var(--accent-text-rgb), 0.5);
   font-size: 0.82rem;
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: color 0.2s;
 }
 
-.forgot-password-link:hover { color: #e8a84c; }
+.forgot-password-link:hover { color: rgb(var(--accent-text-rgb)); }
 
 .auth-footer-text {
   margin-top: 1.5rem;
-  color: rgba(232, 168, 76, 0.45);
+  color: rgba(var(--accent-text-rgb), 0.45);
   font-size: 0.83rem;
 }
 
@@ -294,7 +294,7 @@
   transition: color 0.2s;
 }
 
-.auth-redirect-link:hover { color: #e8a84c; }
+.auth-redirect-link:hover { color: rgb(var(--accent-text-rgb)); }
 
 .auth-error {
   color: #ff8a5c;

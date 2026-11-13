@@ -5,7 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Kwa Khanye (Kraal Culture): explore the music, art and stories of African cultures." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="theme-color" content="#1a0d06" />
   <title>Kwa Khanye</title>
+  <script>
+    (function () {
+      var t = 'dark';
+      try { var s = localStorage.getItem('kraal-theme'); if (s === 'light' || s === 'dark') t = s; } catch (e) {}
+      document.documentElement.setAttribute('data-theme', t);
+      if (t === 'light') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff8ec');
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet" />
