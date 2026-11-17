@@ -13,6 +13,9 @@ if (!inputPath) { console.error('Usage: node scripts/import-artists.mjs artists.
 const lookupPhotos = !flags.includes('--no-photos');
 
 const CULTURES = { zulu: 'Zulu', xitsonga: 'Xitsonga', venda: 'Venda', sotho: 'Sotho', setswana: 'Setswana', ndebele: 'Ndebele', bapedi: 'Bapedi' };
+// The old project used short codes and other spellings. Map them to the app's seven cultures.
+const ALIASES = { zul: 'zulu', tso: 'xitsonga', tsonga: 'xitsonga', ven: 'venda', sot: 'sotho', sesotho: 'sotho',
+  tsw: 'setswana', tswana: 'setswana', ndb: 'ndebele', ped: 'bapedi', sepedi: 'bapedi', pedi: 'bapedi' };
 const FIELDS = ['country_id', 'culture_id', 'culture_name', 'culture_symbol', 'name', 'tagline', 'genre', 'bio', 'photo_url',
   'instagram', 'spotify_url', 'youtube_url', 'has_music', 'has_vr', 'has_bioscope', 'music_route', 'vr_route', 'bioscope_route'];
 const BOOLS = new Set(['has_music', 'has_vr', 'has_bioscope']);
@@ -20,6 +23,7 @@ const BOOLS = new Set(['has_music', 'has_vr', 'has_bioscope']);
 const raw = JSON.parse(readFileSync(inputPath, 'utf8').replace(/^﻿/, ''));
 const rows = Array.isArray(raw) ? raw : raw.value || [];
 const report = [];
+const skippedByCulture = {};
 
 const clean = (v) => (typeof v === 'string' ? v.trim() : v);
 const isFake = (u) => !u || /placeholder\.com|example\.com/i.test(u);
@@ -33,14 +37,20 @@ for (const r0 of rows) {
   for (const f of FIELDS) r[f] = clean(r0[f]) ?? null;
   r.bio = r.bio || clean(r0.biography) || null;
   if (isFake(r.photo_url)) r.photo_url = null;
-  r.culture_id = r.culture_id ? String(r.culture_id).toLowerCase() : null;
+  r.culture_id = r.culture_id ? String(r.culture_id).toLowerCase().trim() : null;
+  r.culture_id = ALIASES[r.culture_id] || r.culture_id;
+  if (r.culture_name && CULTURES[r.culture_id] && norm(r.culture_name) !== norm(CULTURES[r.culture_id])) r.culture_name = null;  // use the app's spelling
   r.country_id = r.country_id || 'za';
   if (!r.name) { report.push('SKIPPED (no name): ' + JSON.stringify(r0).slice(0, 80)); continue; }
-  if (!CULTURES[r.culture_id]) { report.push(`SKIPPED (unknown culture "${r.culture_id}"): ${r.name}`); continue; }
+  if (!CULTURES[r.culture_id]) { skippedByCulture[r.culture_id] = [...(skippedByCulture[r.culture_id] || []), r.name]; continue; }
   r.culture_name = r.culture_name || CULTURES[r.culture_id];
   r.name = r.name.replace(/\s+\(also .*\)$/i, '');   // "Makhadzi (also Venda)" -> "Makhadzi"
   for (const b of BOOLS) r[b] = !!r[b];
   usable.push(r);
+}
+
+for (const [c, names] of Object.entries(skippedByCulture)) {
+  report.push(`NOT IMPORTED: culture "${c}" is not one of the app's cultures (${[...new Set(names)].length} artists): ${[...new Set(names)].join(', ')}`);
 }
 
 // 2. Merge duplicates (same name + culture): keep the fullest row, fill gaps from the others
