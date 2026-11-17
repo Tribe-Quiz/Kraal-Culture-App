@@ -13,9 +13,9 @@
   color-scheme: light;
   --shade-rgb: 255, 248, 236;
   --hi-rgb: 90, 50, 10;
-  --text-rgb: 52, 30, 12;
-  --gold-rgb: 112, 62, 14;
-  --accent-text-rgb: 150, 80, 16;
+  --text-rgb: 38, 20, 6;
+  --gold-rgb: 78, 40, 6;
+  --accent-text-rgb: 128, 66, 8;
 }
 
 body { transition: background-color .25s ease, color .25s ease; }
@@ -63,7 +63,8 @@ body { transition: background-color .25s ease, color .25s ease; }
 
 /* Light mode: pages that blend a dark pattern photo get a cream wash instead */
 .theme-wash { display: none; }
-:root[data-theme="light"] .country-page-container { background-blend-mode: normal !important; }
+:root[data-theme="light"] .country-page-container,
+:root[data-theme="light"] .profile-page { background-blend-mode: normal !important; }
 :root[data-theme="light"] .theme-wash {
   display: block; position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background: rgba(var(--shade-rgb), 0.88);
@@ -73,3 +74,55 @@ body { transition: background-color .25s ease, color .25s ease; }
 :root[data-theme="light"] .country-name-large,
 :root[data-theme="light"] .country-heading-large,
 :root[data-theme="light"] .country-subheading-large { text-shadow: none; }
+
+/* ── Typography: three families, used the same way everywhere ──
+   brand = logo and headings, display = page titles and large text, body = everything else */
+:root {
+  --font-brand: 'Cinzel', Georgia, serif;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --header-offset: 6.25rem;   /* room for the floating header */
+}
+body, button, input, select, textarea { font-family: var(--font-body); }
+
+/* ── Page structure ── */
+.app-shell { min-height: 100vh; display: flex; flex-direction: column; }
+.app-main { flex: 1; width: 100%; padding-top: var(--header-offset); }
+
+/* ── Header: back + brand on the left; theme, account and logout on the right ── */
+.site-header { gap: 0.75rem; }
+.header-left-group { min-width: 0; gap: 0.6rem !important; }
+.header-back {
+  display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto;
+  width: 36px; height: 36px; padding: 0; border-radius: 50%; cursor: pointer;
+  border: 1px solid rgba(var(--hi-rgb), 0.25); background: rgba(var(--shade-rgb), 0.55);
+  color: rgb(var(--text-rgb));
+  transition: transform .15s ease, background .2s ease, color .2s ease;
+}
+.header-back:hover { background: rgba(var(--shade-rgb), 0.9); color: rgb(var(--accent-text-rgb)); transform: translateX(-2px); }
+.header-back:focus-visible { outline: 2px solid rgb(var(--accent-text-rgb)); outline-offset: 2px; }
+.nav-container { margin-left: auto; }
+.nav-list > li { display: flex; align-items: center; }
+.user-profile-badge { font: inherit; color: inherit; }
+.user-profile-badge:focus-visible { outline: 2px solid rgb(var(--accent-text-rgb)); outline-offset: 4px; border-radius: 999px; }
+.auth-links { display: flex; gap: 1rem; align-items: center; margin-left: 0.5rem; }
+.dropdown-signout-btn, .nav-action-btn, .auth-nav-link { font-family: var(--font-body); }
+
+@media (max-width: 640px) {
+  :root { --header-offset: 5rem; }
+  .site-header { width: calc(100% - 1.5rem); top: 0.6rem; padding: 0.4rem 0.5rem 0.4rem 0.75rem; }
+  .brand-logo-text { font-size: 0.9rem; letter-spacing: 0.05em; }
+  .profile-name, .arrow-indicator { display: none; }
+  .nav-list { gap: 0.35rem; }
+}
+@media (max-width: 330px) { .brand-logo-text { display: none; } }
+
+/* Artist profile in light mode: same cream wash as the country page */
+:root[data-theme="light"] .profile-page > .theme-wash { display: block; }
+:root[data-theme="light"] .profile-page > *:not(.theme-wash) { position: relative; z-index: 1; }
+
+/* Light mode: header controls and small labels need more contrast on cream */
+:root[data-theme="light"] .logout-btn { color: rgba(var(--text-rgb), 0.8) !important; text-shadow: none; }
+:root[data-theme="light"] .nav-action-btn,
+:root[data-theme="light"] .auth-nav-link { text-shadow: none; }
+:root[data-theme="light"] .profile-name { text-shadow: none; }

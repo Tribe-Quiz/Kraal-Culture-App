@@ -59,17 +59,14 @@ export default function ArtistsPage() {
   if (error) return <div className="artist-error-view">{error}</div>;
 
   if (artists.length === 0) return (
-    <div style={{ padding: '4rem 1rem', maxWidth: '660px', margin: '0 auto', textAlign: 'center' }}>
+    <div style={{ padding: '1.5rem 1rem 4rem', maxWidth: '660px', margin: '0 auto', textAlign: 'center' }}>
       <h2 className="explore-card-heading">Artists coming soon</h2>
       <p className="explore-card-subheading">We're curating {culture?.name} artists right now — check back soon.</p>
     </div>
   );
 
   return (
-    <div style={{ padding: '4rem 1rem', maxWidth: '660px', margin: '0 auto' }}>
-      <button onClick={() => navigate(`/country/${countryId}`)} style={{ marginBottom: '1.5rem', background: 'none', border: 'none', color: 'rgb(var(--accent-text-rgb))', cursor: 'pointer' }}>
-        ← Back to Cultures
-      </button>
+    <div style={{ padding: '1.5rem 1rem 4rem', maxWidth: '660px', margin: '0 auto' }}>
       <h2 className="explore-card-heading">Choose an Artist</h2>
       <p className="explore-card-subheading">Select an artist to explore their world — music, film, and VR experience.</p>
 

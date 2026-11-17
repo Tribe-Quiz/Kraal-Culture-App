@@ -79,7 +79,7 @@ export default function HomeVR() {
             backdropFilter: 'blur(8px)',
           }}>
             <div style={{
-              fontFamily: "'Cormorant Garamond', serif",
+              fontFamily: 'var(--font-display)',
               fontSize: 'clamp(1.1rem, 2vw, 1.6rem)',
               fontWeight: 700,
               color: 'rgb(var(--gold-rgb))',
@@ -87,7 +87,7 @@ export default function HomeVR() {
               textTransform: 'uppercase',
             }}>NFT Gallery</div>
             <div style={{
-              fontFamily: "'DM Sans', sans-serif",
+              fontFamily: 'var(--font-body)',
               fontSize: '0.7rem',
               letterSpacing: '0.2em',
               color: '#c67a34',
@@ -156,7 +156,7 @@ export default function HomeVR() {
             backdropFilter: 'blur(8px)',
           }}>
             <div style={{
-              fontFamily: "'Cormorant Garamond', serif",
+              fontFamily: 'var(--font-display)',
               fontSize: 'clamp(1.1rem, 2vw, 1.6rem)',
               fontWeight: 700,
               color: 'rgb(var(--gold-rgb))',
@@ -164,7 +164,7 @@ export default function HomeVR() {
               textTransform: 'uppercase',
             }}>Online Store</div>
             <div style={{
-              fontFamily: "'DM Sans', sans-serif",
+              fontFamily: 'var(--font-body)',
               fontSize: '0.7rem',
               letterSpacing: '0.2em',
               color: '#c67a34',
@@ -208,7 +208,7 @@ export default function HomeVR() {
           }
         `}</style>
         <p style={{
-          fontFamily: "'DM Sans', sans-serif",
+          fontFamily: 'var(--font-body)',
           fontSize: '0.72rem',
           letterSpacing: '0.22em',
           textTransform: 'uppercase',

@@ -6,7 +6,7 @@ const S = {
   page: {
     minHeight: '100vh',
     background: 'rgb(var(--shade-rgb))',
-    fontFamily: "'DM Sans', sans-serif",
+    fontFamily: 'var(--font-body)',
     color: 'rgb(var(--gold-rgb))',
   },
 
@@ -31,7 +31,7 @@ const S = {
     position: 'absolute',
     top: '50%', left: '50%',
     transform: 'translate(-50%,-50%)',
-    fontFamily: "'Cormorant Garamond', serif",
+    fontFamily: 'var(--font-display)',
     fontSize: 'clamp(4rem,12vw,10rem)',
     fontWeight: 700,
     color: 'rgb(var(--gold-rgb))',
@@ -58,7 +58,7 @@ const S = {
     zIndex: 1,
   },
   h1: {
-    fontFamily: "'Cormorant Garamond', serif",
+    fontFamily: 'var(--font-display)',
     fontSize: 'clamp(3rem, 8vw, 6rem)',
     fontWeight: 700,
     margin: '0 0 0.5rem',
@@ -99,7 +99,7 @@ const S = {
     padding: '0.6rem 1.25rem',
   },
   statNum: {
-    fontFamily: "'Cormorant Garamond', serif",
+    fontFamily: 'var(--font-display)',
     fontSize: '1.8rem',
     fontWeight: 700,
     color: '#c67a34',
@@ -135,7 +135,7 @@ const S = {
     borderRadius: '50px',
     padding: '0.45rem 1.1rem',
     color: active ? '#fff' : 'rgba(244,208,144,0.8)',
-    fontFamily: "'DM Sans', sans-serif",
+    fontFamily: 'var(--font-body)',
     fontSize: '0.82rem',
     cursor: 'pointer',
     transition: 'all 0.2s',
@@ -195,7 +195,7 @@ const S = {
     marginBottom: '0.3rem',
   },
   cardTitle: {
-    fontFamily: "'Cormorant Garamond', serif",
+    fontFamily: 'var(--font-display)',
     fontSize: '1.2rem',
     fontWeight: 700,
     color: 'rgb(var(--gold-rgb))',
@@ -213,7 +213,7 @@ const S = {
     justifyContent: 'space-between',
   },
   price: {
-    fontFamily: "'Cormorant Garamond', serif",
+    fontFamily: 'var(--font-display)',
     fontSize: '1.1rem',
     fontWeight: 700,
     color: '#c67a34',
@@ -224,7 +224,7 @@ const S = {
     borderRadius: '50px',
     padding: '0.3rem 0.9rem',
     color: '#c67a34',
-    fontFamily: "'DM Sans', sans-serif",
+    fontFamily: 'var(--font-body)',
     fontSize: '0.76rem',
     cursor: 'pointer',
   },
@@ -253,20 +253,20 @@ const S = {
   },
   modalBody: { padding: '1.75rem' },
   modalTitle: {
-    fontFamily: "'Cormorant Garamond', serif",
+    fontFamily: 'var(--font-display)',
     fontSize: '1.9rem', fontWeight: 700,
     color: 'rgb(var(--gold-rgb))', margin: '0 0 0.3rem', lineHeight: 1.15,
   },
   modalArtist: { color: 'rgba(var(--gold-rgb), 0.5)', fontSize: '0.85rem', margin: '0 0 0.75rem' },
   modalDesc: { color: 'rgba(var(--gold-rgb), 0.65)', fontSize: '0.9rem', lineHeight: 1.7, margin: '0 0 1.25rem' },
   modalPrice: {
-    fontFamily: "'Cormorant Garamond', serif",
+    fontFamily: 'var(--font-display)',
     fontSize: '1.6rem', fontWeight: 700, color: '#c67a34', display: 'block', marginBottom: '1.25rem',
   },
   modalAction: {
     display: 'block', width: '100%', border: 'none', borderRadius: '10px',
     padding: '0.9rem', background: 'linear-gradient(135deg, #8B6914, #c67a34)',
-    color: '#fff', fontFamily: "'DM Sans', sans-serif", fontSize: '0.9rem',
+    color: '#fff', fontFamily: 'var(--font-body)', fontSize: '0.9rem',
     fontWeight: 600, cursor: 'pointer', boxSizing: 'border-box',
   },
   closeBtn: {

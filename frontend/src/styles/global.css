@@ -18,7 +18,7 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--deep);
   color: var(--cream);
-  font-family: 'Crimson Text', Georgia, serif;
+  font-family: var(--font-display);
   overflow-x: hidden;
 }
 
@@ -41,7 +41,7 @@ nav.scrolled { padding: 0.6rem 3rem; }
 
 .nav-logo { display:flex; align-items:center; gap:0.7rem; text-decoration:none; }
 .nav-brand {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: 1.35rem;
   font-weight: 700;
   color: var(--gold);
@@ -156,7 +156,7 @@ nav.scrolled { padding: 0.6rem 3rem; }
 }
 
 .hero-title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: clamp(3rem, 8vw, 6.5rem);
   font-weight: 900;
   color: var(--gold);
@@ -179,7 +179,7 @@ nav.scrolled { padding: 0.6rem 3rem; }
   background: var(--clay);
   color: var(--cream);
   text-decoration: none;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: 1rem;
   letter-spacing: 1px;
   border-radius: 2px;
@@ -243,7 +243,7 @@ nav.scrolled { padding: 0.6rem 3rem; }
   margin-bottom: 4rem;
 }
 .section-intro h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3rem);
   color: var(--gold);
   margin-bottom: 0.6rem;
@@ -309,7 +309,7 @@ nav.scrolled { padding: 0.6rem 3rem; }
 .pot-svg { margin-bottom: 0.5rem; filter: drop-shadow(0 8px 16px rgba(200,115,42,0.3)); }
 
 .pot-card h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: 1.6rem;
   color: var(--gold);
 }
@@ -336,7 +336,7 @@ nav.scrolled { padding: 0.6rem 3rem; }
 .pot-enter {
   margin-top: 0.8rem;
   color: var(--clay);
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: 1rem;
   letter-spacing: 1px;
   transition: color 0.2s, letter-spacing 0.2s;
@@ -427,7 +427,7 @@ nav.scrolled { padding: 0.6rem 3rem; }
 }
 
 .footer-text {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: 1.2rem;
   color: var(--gold);
   letter-spacing: 2px;

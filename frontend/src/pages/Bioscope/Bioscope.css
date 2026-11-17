@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap');
 
 .bsc-root {
   min-height: 100vh;
@@ -6,7 +5,7 @@
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   color: rgb(var(--gold-rgb));
   padding-bottom: 4rem;
 }
@@ -24,7 +23,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: clamp(5rem, 15vw, 12rem);
   font-weight: 700;
   color: rgb(var(--gold-rgb));
@@ -50,7 +49,7 @@
 }
 
 .bsc-hero h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: clamp(2.2rem, 6vw, 4rem);
   font-weight: 700;
   margin: 0 0 0.75rem;
@@ -91,7 +90,7 @@
   border-radius: 50px;
   padding: 0.75rem 1rem 0.75rem 2.75rem;
   color: rgb(var(--gold-rgb));
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.95rem;
   outline: none;
   box-sizing: border-box;
@@ -122,7 +121,7 @@
   border-radius: 50px;
   padding: 0.45rem 1.25rem;
   color: rgba(var(--gold-rgb), 0.8);
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.2s;
@@ -159,7 +158,7 @@
 }
 
 .bsc-stat-num {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: 2rem;
   font-weight: 700;
   color: #c67a34;
@@ -240,7 +239,7 @@
 }
 
 .bsc-card-title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: 1.15rem;
   font-weight: 600;
   margin: 0 0 0.25rem;
@@ -287,7 +286,7 @@
   border-radius: 50px;
   padding: 0.3rem 0.85rem;
   color: #c67a34;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.2s;
@@ -404,7 +403,7 @@
   margin-bottom: 0.75rem;
 }
 .bsc-modal-title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: 1.6rem;
   font-weight: 700;
   color: rgb(var(--gold-rgb));
@@ -428,7 +427,7 @@
   color: #fff;
   border-radius: 8px;
   padding: 0.75rem 1.5rem;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.9rem;
   text-decoration: none;

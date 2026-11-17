@@ -3,7 +3,6 @@
    Warm mahogany library palette — amber, tobacco, cream, terracotta
    ================================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 /* ── Tokens ── */
 :root {
@@ -34,9 +33,6 @@
   --clr-border:       rgba(212, 168, 85, 0.18);
   --clr-border-soft:  rgba(212, 168, 85, 0.09);
   --clr-border-mid:   rgba(212, 168, 85, 0.28);
-
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body:    'Inter', system-ui, sans-serif;
 
   --radius-sm:   6px;
   --radius-md:   12px;
@@ -106,7 +102,7 @@
   z-index: 1;
   max-width: 900px;
   margin: 0 auto;
-  padding: 120px 24px calc(var(--bar-height) + 40px); /* clears the fixed site header */
+  padding: 24px 24px calc(var(--bar-height) + 40px);
 }
 
 /* ── Header ── */
@@ -814,7 +810,7 @@
   .volume-control { display: none; }
 
   .music-content {
-    padding: 104px 16px calc(var(--bar-height) + 60px);
+    padding: 16px 16px calc(var(--bar-height) + 60px);
   }
 }
 

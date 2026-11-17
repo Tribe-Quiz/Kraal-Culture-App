@@ -2,7 +2,6 @@
    NowPlaying.css — Full‑screen Calabash Player (self‑contained)
    ================================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 /* ── Tokens (copied from original Music.css) ── */
 :root {
@@ -14,7 +13,7 @@
   --clr-cream-dim: #C4A97A;
   --clr-text: #DDD0B0;
   --clr-text-muted: #7A6545;
-  --font-display: 'Playfair Display', Georgia, serif;
+  --font-display: var(--font-display);
   --font-body: 'Inter', system-ui, sans-serif;
 }
 

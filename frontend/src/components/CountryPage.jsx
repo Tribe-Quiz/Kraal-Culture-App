@@ -52,9 +52,6 @@ export default function CountryPage() {
     >
       <div className="theme-wash" aria-hidden="true" />
       <div className="country-page-content">
-        <button onClick={() => navigate('/')} className="cultural-back-btn">
-          ⬅ Back to Countries
-        </button>
 
         <div className="country-header">
           {/* Flag + country name */}

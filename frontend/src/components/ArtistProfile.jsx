@@ -18,7 +18,7 @@ import backgroundImage from '../assets/images/Music Back.jpg';
 const S = {
   page: {
     minHeight: '100vh',
-    fontFamily: "'DM Sans', sans-serif",
+    fontFamily: 'var(--font-body)',
     color: 'rgb(var(--gold-rgb))',
     position: 'relative',
     backgroundImage: `url(${backgroundImage})`,
@@ -105,7 +105,7 @@ const S = {
   },
 
   heroName: {
-    fontFamily: "'Cinzel', serif",
+    fontFamily: 'var(--font-brand)',
     fontSize: 'clamp(2.5rem, 8vw, 4.5rem)',
     fontWeight: 700,
     color: 'rgb(var(--gold-rgb))',
@@ -166,7 +166,7 @@ const S = {
     left: '-0.8rem',
     fontSize: '4rem',
     color: 'rgba(212, 143, 56, 0.08)',
-    fontFamily: "'Cormorant Garamond', serif",
+    fontFamily: 'var(--font-display)',
     pointerEvents: 'none',
     userSelect: 'none',
     lineHeight: 1,
@@ -248,7 +248,7 @@ const S = {
   },
 
   hubTitle: {
-    fontFamily: "'Cinzel', serif",
+    fontFamily: 'var(--font-brand)',
     fontSize: '0.85rem',
     fontWeight: 700,
     letterSpacing: '0.12em',
@@ -258,7 +258,7 @@ const S = {
   },
 
   hubCta: {
-    fontFamily: "'DM Sans', sans-serif",
+    fontFamily: 'var(--font-body)',
     fontSize: '0.7rem',
     fontWeight: 500,
     color: '#c67a34',
@@ -283,7 +283,7 @@ const S = {
     lineHeight: 1.6,
     color: 'rgba(var(--gold-rgb), 0.5)',
     fontStyle: 'italic',
-    fontFamily: "'Cormorant Garamond', serif",
+    fontFamily: 'var(--font-display)',
     marginBottom: '0.3rem',
   },
   proverbAttr: {
@@ -385,7 +385,7 @@ export default function ArtistProfile() {
     return (
       <div style={{ ...S.page, ...S.center }}>
         <div style={{ fontSize: '3rem' }}>🎤</div>
-        <h2 style={{ fontFamily: "'Cinzel', serif", color: 'rgb(var(--accent-text-rgb))', fontSize: '1.5rem' }}>Artist not found</h2>
+        <h2 style={{ fontFamily: 'var(--font-brand)', color: 'rgb(var(--accent-text-rgb))', fontSize: '1.5rem' }}>Artist not found</h2>
         <p style={{ color: 'rgba(var(--gold-rgb), 0.5)', maxWidth: '320px' }}>
           This artist profile doesn't exist or hasn't been set up yet.
         </p>
@@ -394,7 +394,7 @@ export default function ArtistProfile() {
           style={{
             background: 'linear-gradient(135deg, #8B6914, #c67a34)',
             border: 'none', borderRadius: '8px', padding: '0.75rem 1.5rem',
-            color: '#fff', fontFamily: "'DM Sans', sans-serif",
+            color: '#fff', fontFamily: 'var(--font-body)',
             fontSize: '0.88rem', fontWeight: 600, cursor: 'pointer',
           }}
         >← Back to Explore</button>
@@ -405,6 +405,11 @@ export default function ArtistProfile() {
   // Hero image
   const heroImage = (artist.name && artist.name.toLowerCase().includes('busi')) ? busiImage : artist.photo_url;
 
+  // Only follow routes that exist in this app. Older records stored links such as
+  // /music/some-artist, which have no page and bounced people to the home page.
+  const KNOWN = { '/music': true, '/homevr': true, '/bioscope': true, '/nft': true, '/store': true };
+  const safeRoute = (route, fallback) => (route && KNOWN[route.split('?')[0]] ? route : fallback);
+
   // Hub data
   const hubs = [
     {
@@ -412,43 +417,32 @@ export default function ArtistProfile() {
       title: 'Music',
       disabled: !artist.has_music,
       comingSoon: !artist.has_music,
-      onClick: () => navigate(artist.music_route || `/music?artist=${encodeURIComponent(artist.name)}`),
+      onClick: () => navigate(safeRoute(artist.music_route, '/music').split('?')[0] + `?artist=${encodeURIComponent(artist.name)}`),
     },
     {
       icon: homevrImg,
       title: 'Home VR',
       disabled: !artist.has_vr,
       comingSoon: !artist.has_vr,
-      onClick: () => navigate(artist.vr_route || '/homevr'),
+      onClick: () => navigate(safeRoute(artist.vr_route, '/homevr')),
     },
     {
       icon: bioscopeImg,
       title: 'Bioscope',
       disabled: !artist.has_bioscope,
       comingSoon: !artist.has_bioscope,
-      onClick: () => navigate(artist.bioscope_route || '/bioscope'),
+      onClick: () => navigate(safeRoute(artist.bioscope_route, '/bioscope')),
     },
   ];
 
   return (
-    <div style={S.page}>
+    <div style={S.page} className="profile-page">
+      <div className="theme-wash" aria-hidden="true" />
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
         * { box-sizing: border-box; }
       `}</style>
 
-      {/* Back button */}
-      <button
-        style={S.backBtn}
-        onClick={() => navigate(-1)}
-        onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(198,122,52,0.75)'}
-        onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(198,122,52,0.35)'}
-      >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-          <polyline points="15 18 9 12 15 6" />
-        </svg>
-        Back
-      </button>
+
 
       {/* Hero */}
       <div style={S.hero}>
