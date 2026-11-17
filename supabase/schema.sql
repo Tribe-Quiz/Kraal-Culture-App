@@ -253,3 +253,9 @@ create policy "user-music: delete own files"
   to authenticated
   using (bucket_id = 'user-music'
          and (storage.foldername(name))[1] = (select auth.uid())::text);
+
+-- ─────────────────────────────────────────────────────────────────────────
+-- 7. Hardening: the signup trigger function must not be callable via the API.
+--    (username_available stays callable on purpose: the signup form uses it.)
+-- ─────────────────────────────────────────────────────────────────────────
+revoke execute on function public.handle_new_user() from public, anon, authenticated;
