@@ -1,6 +1,6 @@
 // ArtistProfile.jsx
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../supabase';
 
 // Pot images for hub cards
@@ -331,6 +331,7 @@ function HubCard({ icon, title, onClick, disabled, comingSoon }) {
 export default function ArtistProfile() {
   const { artistId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [artist, setArtist] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -358,6 +359,13 @@ export default function ArtistProfile() {
         setError('Artist not found.');
       } else {
         setArtist(data);
+        // Make Back always return to this artist's culture list
+        if (!location.state?.returnTo && data.country_id && data.culture_id) {
+          navigate(location.pathname, {
+            replace: true,
+            state: { returnTo: `/country/${String(data.country_id).toLowerCase()}/culture/${data.culture_id}/artists` },
+          });
+        }
       }
       setLoading(false);
     };

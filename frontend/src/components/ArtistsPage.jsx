@@ -94,7 +94,7 @@ export default function ArtistsPage() {
 
       <div className="artist-selection-grid">
         {filteredArtists.map(artist => (
-          <button key={artist.id} onClick={() => navigate(`/artist/${artist.id}`)} className="artist-grid-card">
+          <button key={artist.id} onClick={() => navigate(`/artist/${artist.id}`, { state: { returnTo: `/country/${countryId}/culture/${cultureId}/artists` } })} className="artist-grid-card">
             <div className="artist-img-frame">
               {artist.photo_url
                 ? <img src={artist.photo_url} alt={artist.name} className="artist-photo" />

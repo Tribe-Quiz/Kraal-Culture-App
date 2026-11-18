@@ -21,7 +21,7 @@ function getBackTarget(pathname, state) {
   const artists = pathname.match(/^\/country\/([^/]+)\/culture\/[^/]+\/artists\/?$/);
   if (artists) return `/country/${artists[1]}`;
   if (/^\/country\/[^/]+\/?$/.test(pathname)) return '/';
-  if (pathname.startsWith('/artist/')) return -1;
+  if (pathname.startsWith('/artist/')) return state?.returnTo || -1;
   if (pathname === '/now-playing') return state?.returnTo || '/music';
   if (pathname === '/nft' || pathname === '/store') return '/homevr';
   if (['/music', '/homevr', '/bioscope'].includes(pathname)) return '/';
