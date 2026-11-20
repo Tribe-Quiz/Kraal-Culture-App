@@ -12,10 +12,10 @@ const [, , inputPath, ...flags] = process.argv;
 if (!inputPath) { console.error('Usage: node scripts/import-artists.mjs artists.json [--no-photos]'); process.exit(1); }
 const lookupPhotos = !flags.includes('--no-photos');
 
-const CULTURES = { zulu: 'Zulu', xitsonga: 'Xitsonga', venda: 'Venda', sotho: 'Sotho', setswana: 'Setswana', ndebele: 'Ndebele', bapedi: 'Bapedi' };
+const CULTURES = { zulu: 'Zulu', xitsonga: 'Xitsonga', venda: 'Venda', sotho: 'Sotho', setswana: 'Setswana', ndebele: 'Ndebele', bapedi: 'Bapedi', xhosa: 'Xhosa', swati: 'Swati' };
 // The old project used short codes and other spellings. Map them to the app's seven cultures.
 const ALIASES = { zul: 'zulu', tso: 'xitsonga', tsonga: 'xitsonga', ven: 'venda', sot: 'sotho', sesotho: 'sotho',
-  tsw: 'setswana', tswana: 'setswana', ndb: 'ndebele', ped: 'bapedi', sepedi: 'bapedi', pedi: 'bapedi' };
+  tsw: 'setswana', tswana: 'setswana', ndb: 'ndebele', ped: 'bapedi', xho: 'xhosa', isixhosa: 'xhosa', swa: 'swati', swz: 'swati', siswati: 'swati', swazi: 'swati', sepedi: 'bapedi', pedi: 'bapedi' };
 const FIELDS = ['country_id', 'culture_id', 'culture_name', 'culture_symbol', 'name', 'tagline', 'genre', 'bio', 'photo_url',
   'instagram', 'spotify_url', 'youtube_url', 'has_music', 'has_vr', 'has_bioscope', 'music_route', 'vr_route', 'bioscope_route'];
 const BOOLS = new Set(['has_music', 'has_vr', 'has_bioscope']);

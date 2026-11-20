@@ -259,3 +259,64 @@ create policy "user-music: delete own files"
 --    (username_available stays callable on purpose: the signup form uses it.)
 -- ─────────────────────────────────────────────────────────────────────────
 revoke execute on function public.handle_new_user() from public, anon, authenticated;
+-- ─────────────────────────────────────────────────────────────────────────
+-- 8. Per-artist content: Home VR room image, store products, NFTs, Bioscope videos
+--    Signed-in users can read. Add and edit rows from the dashboard Table Editor
+--    (the dashboard bypasses RLS). Turn on artists.has_vr / has_bioscope when an
+--    artist's content is ready so the buttons on their profile switch on.
+-- ─────────────────────────────────────────────────────────────────────────
+alter table public.artists add column if not exists vr_image_url text;   -- optional room artwork (16:9 image link)
+
+create table if not exists public.artist_products (
+  id          uuid primary key default gen_random_uuid(),
+  artist_id   uuid not null references public.artists(id) on delete cascade,
+  title       text not null,
+  description text,
+  category    text not null default 'Merch',
+  price_zar   numeric(10,2) not null check (price_zar >= 0),
+  image_url   text,
+  badge       text,
+  in_stock    boolean not null default true,
+  sort_order  int not null default 0,
+  created_at  timestamptz not null default now()
+);
+
+create table if not exists public.artist_nfts (
+  id          uuid primary key default gen_random_uuid(),
+  artist_id   uuid not null references public.artists(id) on delete cascade,
+  title       text not null,
+  description text,
+  category    text not null default 'Digital Art',
+  price_text  text,                 -- shown as written, e.g. '0.45 ETH'
+  edition     text,                 -- e.g. '1 of 10'
+  image_url   text,
+  sort_order  int not null default 0,
+  created_at  timestamptz not null default now()
+);
+
+create table if not exists public.artist_videos (
+  id            uuid primary key default gen_random_uuid(),
+  artist_id     uuid not null references public.artists(id) on delete cascade,
+  title         text not null,
+  description   text,
+  kind          text not null default 'Music video' check (kind in ('Story','Biography','Music video')),  -- which Bioscope screen it appears on
+  video_url     text not null,                    -- a YouTube link
+  thumbnail_url text,                             -- optional; YouTube thumbnail is used if empty
+  sort_order    int not null default 0,
+  created_at    timestamptz not null default now()
+);
+
+create index if not exists artist_products_artist_idx on public.artist_products (artist_id, sort_order);
+create index if not exists artist_nfts_artist_idx     on public.artist_nfts (artist_id, sort_order);
+create index if not exists artist_videos_artist_idx   on public.artist_videos (artist_id, sort_order);
+
+alter table public.artist_products enable row level security;
+alter table public.artist_nfts     enable row level security;
+alter table public.artist_videos   enable row level security;
+
+drop policy if exists "artist_products: signed-in users can read" on public.artist_products;
+create policy "artist_products: signed-in users can read" on public.artist_products for select to authenticated using (true);
+drop policy if exists "artist_nfts: signed-in users can read" on public.artist_nfts;
+create policy "artist_nfts: signed-in users can read" on public.artist_nfts for select to authenticated using (true);
+drop policy if exists "artist_videos: signed-in users can read" on public.artist_videos;
+create policy "artist_videos: signed-in users can read" on public.artist_videos for select to authenticated using (true);

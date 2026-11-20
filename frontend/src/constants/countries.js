@@ -57,6 +57,20 @@ export const COUNTRIES = [
         symbol: '⚔️',
         image: 'Bapedi.jpg',
       },
+      {
+        id: 'xhosa',
+        name: 'Xhosa',
+        aka: 'amaXhosa',
+        symbol: '🪘',
+        image: null,
+      },
+      {
+        id: 'swati',
+        name: 'Swati',
+        aka: 'amaSwati',
+        symbol: '🌾',
+        image: null,
+      },
     ],
   },
   // Other countries – unchanged

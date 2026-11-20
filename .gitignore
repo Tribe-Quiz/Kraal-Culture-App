@@ -23,3 +23,7 @@ pnpm-debug.log*
 *.suo
 *.sw?
 *.local
+
+artists.json
+import-artists.sql
+import-report.txt
