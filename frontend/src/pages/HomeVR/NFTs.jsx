@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../../supabase';
 
 const S = {
@@ -288,9 +288,14 @@ const NFTS = [
 ];
 
 const FILTERS = ['All', 'Digital Art', 'Photography', 'Animation', 'Generative', '3D Art'];
+const imgFill = { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' };
 
 export default function NFTs() {
   const navigate = useNavigate();
+  const { artistId } = useParams();            // set on /artist/:artistId/nft, empty on the shared /nft
+  const [artist, setArtist] = useState(null);
+  const [items, setItems] = useState(artistId ? [] : NFTS);
+  const [loadingItems, setLoadingItems] = useState(!!artistId);
   const [filter, setFilter] = useState('All');
   const [selected, setSelected] = useState(null);
   const [hovered, setHovered] = useState(null);
@@ -303,7 +308,29 @@ export default function NFTs() {
     checkAuth();
   }, [navigate]);
 
-  const filtered = filter === 'All' ? NFTS : NFTS.filter(n => n.category === filter);
+  useEffect(() => {
+    if (!artistId) return;
+    let cancelled = false;
+    (async () => {
+      setLoadingItems(true);
+      const [a, n] = await Promise.all([
+        supabase.from('artists').select('id,name').eq('id', artistId).maybeSingle(),
+        supabase.from('artist_nfts').select('*').eq('artist_id', artistId).order('sort_order').order('created_at'),
+      ]);
+      if (cancelled) return;
+      setArtist(a.data || null);
+      setItems((n.data || []).map(r => ({
+        id: r.id, title: r.title, artist: a.data?.name || '', category: r.category,
+        price: r.price_text || '—', edition: r.edition || 'Open', emoji: '🖼️',
+        bg: 'linear-gradient(135deg,#1a2a0a,#2d4a15)', image_url: r.image_url, desc: r.description || '',
+      })));
+      setLoadingItems(false);
+    })();
+    return () => { cancelled = true; };
+  }, [artistId]);
+
+  const filters = artistId ? ['All', ...new Set(items.map(n => n.category))] : FILTERS;
+  const filtered = filter === 'All' ? items : items.filter(n => n.category === filter);
 
   return (
     <div style={S.page}>
@@ -314,13 +341,14 @@ export default function NFTs() {
         <div style={S.headerWatermark}>NFT GALLERY</div>
         <div style={{ position: 'relative', zIndex: 1 }}>
           <span style={S.eyebrow}>🖼️ &nbsp; NFT Gallery</span>
-          <h1 style={S.h1}>The Digital Kraal</h1>
+          <h1 style={S.h1}>{artistId ? `${artist?.name || 'Artist'} NFTs` : 'The Digital Kraal'}</h1>
           <p style={S.subtitle}>
-            Authentic African digital art, tokenised on the blockchain —
-            own a piece of the culture forever.
+            {artistId
+              ? `Digital collectables from ${artist?.name || 'this artist'}.`
+              : 'Authentic African digital art, tokenised on the blockchain — own a piece of the culture forever.'}
           </p>
           <div style={S.statsRow}>
-            {[['24', 'Works'], ['12', 'Artists'], ['3', 'Drops'], ['ETH', 'Currency']].map(([n, l]) => (
+            {(artistId ? [[String(items.length), 'Works']] : [['24', 'Works'], ['12', 'Artists'], ['3', 'Drops'], ['ETH', 'Currency']]).map(([n, l]) => (
               <div key={l} style={S.statBox}>
                 <span style={S.statNum}>{n}</span>
                 <span style={S.statLabel}>{l}</span>
@@ -335,11 +363,16 @@ export default function NFTs() {
 
         {/* Filter pills */}
         <div style={S.filterRow}>
-          {FILTERS.map(f => (
+          {filters.map(f => (
             <button key={f} style={S.filterBtn(filter === f)} onClick={() => setFilter(f)}>{f}</button>
           ))}
         </div>
 
+        {artistId && !loadingItems && items.length === 0 && (
+          <p style={{ textAlign: 'center', padding: '3rem 1rem', color: 'rgba(var(--gold-rgb), 0.7)' }}>
+            {artist?.name || 'This artist'}'s NFT gallery is coming soon.
+          </p>
+        )}
         {/* NFT Grid */}
         <div style={S.grid}>
           {filtered.map(nft => (
@@ -351,7 +384,7 @@ export default function NFTs() {
               onClick={() => setSelected(nft)}
             >
               <div style={S.cardThumb(nft.bg)}>
-                <span>{nft.emoji}</span>
+                {nft.image_url ? <img src={nft.image_url} alt={nft.title} style={imgFill} /> : <span>{nft.emoji}</span>}
                 <span style={S.badge}>{nft.edition}</span>
               </div>
               <div style={S.cardBody}>
@@ -373,7 +406,9 @@ export default function NFTs() {
         <div style={S.overlay} onClick={() => setSelected(null)}>
           <div style={S.modal} onClick={e => e.stopPropagation()}>
             <button style={S.closeBtn} onClick={() => setSelected(null)}>✕</button>
-            <div style={{ ...S.modalHero, background: selected.bg }}>{selected.emoji}</div>
+            <div style={{ ...S.modalHero, background: selected.bg, position: 'relative', overflow: 'hidden' }}>
+              {selected.image_url ? <img src={selected.image_url} alt={selected.title} style={imgFill} /> : selected.emoji}
+            </div>
             <div style={S.modalBody}>
               <span style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#c67a34' }}>{selected.category} &nbsp;·&nbsp; {selected.edition}</span>
               <h2 style={S.modalTitle}>{selected.title}</h2>

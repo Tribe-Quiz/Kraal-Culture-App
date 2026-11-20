@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../../supabase';
 
 const S = {
@@ -225,8 +225,21 @@ const PRODUCTS = [
 
 const FILTERS = ['All', 'Apparel', 'Accessories', 'Lifestyle', 'Art'];
 
+// A row from public.artist_products, shaped like the sample products above.
+const toProduct = (r) => ({
+  id: r.id, title: r.title, category: r.category,
+  price: 'R ' + Number(r.price_zar).toLocaleString('en-ZA', { maximumFractionDigits: 2 }),
+  emoji: '🛍️', bg: 'linear-gradient(135deg,#1a0a05,#2a1508)', image_url: r.image_url,
+  inStock: r.in_stock, badge: r.badge || '', desc: r.description || '',
+});
+const imgFill = { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' };
+
 export default function OnlineStore() {
   const navigate = useNavigate();
+  const { artistId } = useParams();            // set on /artist/:artistId/store, empty on the shared /store
+  const [artist, setArtist] = useState(null);
+  const [items, setItems] = useState(artistId ? [] : PRODUCTS);
+  const [loadingItems, setLoadingItems] = useState(!!artistId);
   const [filter, setFilter] = useState('All');
   const [cart, setCart] = useState([]);
   const [selected, setSelected] = useState(null);
@@ -240,7 +253,25 @@ export default function OnlineStore() {
     checkAuth();
   }, [navigate]);
 
-  const filtered = filter === 'All' ? PRODUCTS : PRODUCTS.filter(p => p.category === filter);
+  useEffect(() => {
+    if (!artistId) return;
+    let cancelled = false;
+    (async () => {
+      setLoadingItems(true);
+      const [a, p] = await Promise.all([
+        supabase.from('artists').select('id,name').eq('id', artistId).maybeSingle(),
+        supabase.from('artist_products').select('*').eq('artist_id', artistId).order('sort_order').order('created_at'),
+      ]);
+      if (cancelled) return;
+      setArtist(a.data || null);
+      setItems((p.data || []).map(toProduct));
+      setLoadingItems(false);
+    })();
+    return () => { cancelled = true; };
+  }, [artistId]);
+
+  const filters = artistId ? ['All', ...new Set(items.map(p => p.category))] : FILTERS;
+  const filtered = filter === 'All' ? items : items.filter(p => p.category === filter);
   const addToCart = (e, id) => { e.stopPropagation(); setCart(c => c.includes(id) ? c : [...c, id]); };
 
   return (
@@ -252,13 +283,14 @@ export default function OnlineStore() {
         <div style={S.headerWatermark}>ONLINE STORE</div>
         <div style={{ position: 'relative', zIndex: 1 }}>
           <span style={S.eyebrow}>🛍️ &nbsp; Online Store</span>
-          <h1 style={S.h1}>The Kraal Market</h1>
+          <h1 style={S.h1}>{artistId ? `${artist?.name || 'Artist'} Store` : 'The Kraal Market'}</h1>
           <p style={S.subtitle}>
-            Wear the culture, carry the spirit — authentic Kwa Khanye
-            merchandise crafted with pride.
+            {artistId
+              ? `Official merchandise and collectables from ${artist?.name || 'this artist'}.`
+              : 'Wear the culture, carry the spirit — authentic Kwa Khanye merchandise crafted with pride.'}
           </p>
           <div style={S.statsRow}>
-            {[['32', 'Products'], ['Free', 'Shipping R1000+'], ['ZAR', 'Currency'], ['7d', 'Returns']].map(([n, l]) => (
+            {[[String(items.length), 'Products'], ['Free', 'Shipping R1000+'], ['ZAR', 'Currency'], ['7d', 'Returns']].map(([n, l]) => (
               <div key={l} style={S.statBox}>
                 <span style={S.statNum}>{n}</span>
                 <span style={S.statLabel}>{l}</span>
@@ -274,7 +306,7 @@ export default function OnlineStore() {
         {/* Cart + filters row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-            {FILTERS.map(f => (
+            {filters.map(f => (
               <button key={f} style={S.filterBtn(filter === f)} onClick={() => setFilter(f)}>{f}</button>
             ))}
           </div>
@@ -286,6 +318,11 @@ export default function OnlineStore() {
           </button>
         </div>
 
+        {artistId && !loadingItems && items.length === 0 && (
+          <p style={{ textAlign: 'center', padding: '3rem 1rem', color: 'rgba(var(--gold-rgb), 0.7)' }}>
+            {artist?.name || 'This artist'}'s store is coming soon.
+          </p>
+        )}
         {/* Product Grid */}
         <div style={S.grid}>
           {filtered.map(p => (
@@ -297,7 +334,7 @@ export default function OnlineStore() {
               onClick={() => setSelected(p)}
             >
               <div style={S.cardThumb(p.bg)}>
-                <span>{p.emoji}</span>
+                {p.image_url ? <img src={p.image_url} alt={p.title} style={imgFill} /> : <span>{p.emoji}</span>}
                 {p.badge && <span style={S.badge}>{p.badge}</span>}
                 <span style={S.inStockDot(p.inStock)}>
                   <span style={{ width: 6, height: 6, borderRadius: '50%', background: p.inStock ? '#6dbf8a' : '#e05252', display: 'inline-block' }} />
@@ -329,7 +366,9 @@ export default function OnlineStore() {
         <div style={S.overlay} onClick={() => setSelected(null)}>
           <div style={S.modal} onClick={e => e.stopPropagation()}>
             <button style={S.closeBtn} onClick={() => setSelected(null)}>✕</button>
-            <div style={{ ...S.modalHero, background: selected.bg }}>{selected.emoji}</div>
+            <div style={{ ...S.modalHero, background: selected.bg, position: 'relative', overflow: 'hidden' }}>
+              {selected.image_url ? <img src={selected.image_url} alt={selected.title} style={imgFill} /> : selected.emoji}
+            </div>
             <div style={S.modalBody}>
               <span style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#c67a34' }}>{selected.category}</span>
               <h2 style={S.modalTitle}>{selected.title}</h2>

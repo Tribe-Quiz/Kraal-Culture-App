@@ -15,6 +15,7 @@ import HomeVR from './pages/HomeVR/HomeVR';
 import NFTs from './pages/HomeVR/NFTs';
 import OnlineStore from './pages/HomeVR/OnlineStore';
 import Bioscope from './pages/Bioscope/Bioscope';
+import ArtistBioscope from './pages/Bioscope/ArtistBioscope';
 
 import LoginPage from './pages/Auth/LoginPage';
 import SignUpPage from './pages/Auth/SignUpPage';
@@ -153,6 +154,38 @@ function App() {
             element={
               <ProtectedRoute>
                 <Bioscope />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/artist/:artistId/homevr"
+            element={
+              <ProtectedRoute>
+                <HomeVR />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/artist/:artistId/store"
+            element={
+              <ProtectedRoute>
+                <OnlineStore />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/artist/:artistId/nft"
+            element={
+              <ProtectedRoute>
+                <NFTs />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/artist/:artistId/bioscope"
+            element={
+              <ProtectedRoute>
+                <ArtistBioscope />
               </ProtectedRoute>
             }
           />

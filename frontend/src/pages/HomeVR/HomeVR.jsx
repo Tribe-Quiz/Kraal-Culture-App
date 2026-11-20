@@ -1,11 +1,15 @@
 // HomeVR.jsx — full-screen background image, no header, only hotspots
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../../supabase';
 import homeVRImage from '../../assets/images/HomeVR.png'; // adjust path if needed
 
 export default function HomeVR() {
   const navigate = useNavigate();
+  const { artistId } = useParams();            // set on /artist/:artistId/homevr, empty on the shared /homevr
+  const [artist, setArtist] = useState(null);
+  const nftPath = artistId ? `/artist/${artistId}/nft` : '/nft';
+  const storePath = artistId ? `/artist/${artistId}/store` : '/store';
   const [hoverNft, setHoverNft] = useState(false);
   const [hoverStore, setHoverStore] = useState(false);
 
@@ -16,6 +20,12 @@ export default function HomeVR() {
     };
     checkAuth();
   }, [navigate]);
+
+  useEffect(() => {
+    if (!artistId) return;
+    supabase.from('artists').select('id,name,vr_image_url').eq('id', artistId).maybeSingle()
+      .then(({ data }) => setArtist(data || null));
+  }, [artistId]);
 
   return (
     <div style={{
@@ -32,13 +42,22 @@ export default function HomeVR() {
       position: 'relative',
       aspectRatio: '1408 / 768',
       width: 'min(100vw, calc(100vh * 1408 / 768))',
-      backgroundImage: `url(${homeVRImage})`,
+      backgroundImage: `url(${artist?.vr_image_url || homeVRImage})`,
       backgroundSize: '100% 100%',
       backgroundRepeat: 'no-repeat',
     }}>
+      {artist && (
+        <div style={{
+          position: 'absolute', bottom: '3%', left: '50%', transform: 'translateX(-50%)', zIndex: 20,
+          padding: '0.35rem 1.1rem', borderRadius: '50px', whiteSpace: 'nowrap',
+          background: 'rgba(0,0,0,0.55)', color: '#f3dcae', border: '1px solid rgba(232,168,76,0.45)',
+          fontFamily: 'var(--font-display)', fontSize: 'clamp(0.85rem, 2vw, 1.15rem)', letterSpacing: '0.06em',
+        }}>{artist.name} · Home VR</div>
+      )}
+
       {/* NFT FRAME HOTSPOT (left) */}
       <div
-        onClick={() => navigate('/nft')}
+        onClick={() => navigate(nftPath)}
         onMouseEnter={() => setHoverNft(true)}
         onMouseLeave={() => setHoverNft(false)}
         style={{
@@ -115,7 +134,7 @@ export default function HomeVR() {
 
       {/* ONLINE STORE FRAME HOTSPOT (right) */}
       <div
-        onClick={() => navigate('/store')}
+        onClick={() => navigate(storePath)}
         onMouseEnter={() => setHoverStore(true)}
         onMouseLeave={() => setHoverStore(false)}
         style={{

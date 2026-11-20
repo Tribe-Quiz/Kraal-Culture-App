@@ -432,14 +432,14 @@ export default function ArtistProfile() {
       title: 'Home VR',
       disabled: !artist.has_vr,
       comingSoon: !artist.has_vr,
-      onClick: () => navigate(safeRoute(artist.vr_route, '/homevr')),
+      onClick: () => navigate(`/artist/${artist.id}/homevr`),
     },
     {
       icon: bioscopeImg,
       title: 'Bioscope',
       disabled: !artist.has_bioscope,
       comingSoon: !artist.has_bioscope,
-      onClick: () => navigate(safeRoute(artist.bioscope_route, '/bioscope')),
+      onClick: () => navigate(`/artist/${artist.id}/bioscope`),
     },
   ];
 
