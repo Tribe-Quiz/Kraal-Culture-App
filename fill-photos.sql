@@ -1,0 +1,2 @@
+-- 1 photos. Only fills artists that currently have no photo.
+update public.artists set photo_url = 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Dizu_Plaatjies_%26_The_Ibuyambo_Ensemble_%2845038895904%29.jpg/960px-Dizu_Plaatjies_%26_The_Ibuyambo_Ensemble_%2845038895904%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail' where id = '88b1166a-03f4-42d5-b9b2-c79a4e16ebed' and photo_url is null; -- Dizu Plaatjies (Wikipedia)

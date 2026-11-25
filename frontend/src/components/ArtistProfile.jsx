@@ -335,6 +335,9 @@ export default function ArtistProfile() {
   const [artist, setArtist] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [photoMsg, setPhotoMsg] = useState('');
 
   // Auth guard
   useEffect(() => {
@@ -344,6 +347,18 @@ export default function ArtistProfile() {
     };
     checkAuth();
   }, [navigate]);
+
+  // Is this person an owner? Owners see a "Change photo" button.
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data } = await supabase.from('admins').select('user_id').eq('user_id', user.id).maybeSingle();
+      if (!cancelled) setIsAdmin(!!data);
+    })();
+    return () => { cancelled = true; };
+  }, []);
 
   // Fetch artist
   useEffect(() => {
@@ -410,6 +425,27 @@ export default function ArtistProfile() {
     );
   }
 
+  // Owner-only: upload a new photo for this artist
+  const handlePhoto = async (e) => {
+    const file = e.target.files && e.target.files[0];
+    e.target.value = '';
+    if (!file) return;
+    if (!/^image\/(jpeg|png|webp)$/.test(file.type)) { setPhotoMsg('Choose a JPG, PNG or WebP image.'); return; }
+    if (file.size > 5 * 1024 * 1024) { setPhotoMsg('The image must be under 5 MB.'); return; }
+    setUploading(true);
+    setPhotoMsg('');
+    const ext = file.type === 'image/png' ? 'png' : file.type === 'image/webp' ? 'webp' : 'jpg';
+    const path = `${artist.id}/${Date.now()}.${ext}`;
+    const up = await supabase.storage.from('artist-photos').upload(path, file, { contentType: file.type });
+    if (up.error) { setUploading(false); setPhotoMsg('Upload failed: ' + up.error.message); return; }
+    const { data: pub } = supabase.storage.from('artist-photos').getPublicUrl(path);
+    const { error: saveErr } = await supabase.from('artists').update({ photo_url: pub.publicUrl }).eq('id', artist.id);
+    setUploading(false);
+    if (saveErr) { setPhotoMsg('Saved the file but not the link: ' + saveErr.message); return; }
+    setArtist((a) => ({ ...a, photo_url: pub.publicUrl }));
+    setPhotoMsg('Photo updated.');
+  };
+
   // Hero image
   const heroImage = (artist.name && artist.name.toLowerCase().includes('busi')) ? busiImage : artist.photo_url;
 
@@ -460,6 +496,15 @@ export default function ArtistProfile() {
           <div style={S.heroFallback}>🎤</div>
         )}
         <div style={S.heroOverlay} />
+        {isAdmin && (
+          <div style={{ position: 'absolute', right: '1rem', bottom: '1rem', zIndex: 5, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.4rem' }}>
+            <label style={{ cursor: uploading ? 'wait' : 'pointer', padding: '0.5rem 1rem', borderRadius: '50px', background: 'rgba(0,0,0,0.65)', color: '#f3dcae', border: '1px solid rgba(232,168,76,0.6)', fontFamily: 'var(--font-body)', fontSize: '0.8rem', letterSpacing: '0.05em' }}>
+              {uploading ? 'Uploading…' : heroImage ? '📷 Change photo' : '📷 Add photo'}
+              <input type="file" accept="image/jpeg,image/png,image/webp" onChange={handlePhoto} disabled={uploading} style={{ display: 'none' }} />
+            </label>
+            {photoMsg && <span role="status" style={{ padding: '0.25rem 0.7rem', borderRadius: '8px', background: 'rgba(0,0,0,0.7)', color: '#f3dcae', fontSize: '0.75rem' }}>{photoMsg}</span>}
+          </div>
+        )}
         <div style={S.heroContent}>
           {artist.culture_name && (
             <div style={S.culturePill}>
